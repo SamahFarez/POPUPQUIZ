@@ -48,29 +48,31 @@
     <nav id="navbar" class="navbar nav-menu">
       <ul>
         <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
-        <li><a href="" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
-        <li><a href="" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
-        <li><a href="" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
+        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
+        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
+        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
-    <div class="container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Generate your Quiz ! </h1>
-      <p><a href="#about">Start <span class="typed" data-typed-items=" generating"></span></a></p>
-      <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div>
-    </div>
-  </section><!-- End Hero -->
+      <section id="hero" class="d-flex flex-column justify-content-center">
+        <div class="container" data-aos="zoom-in" data-aos-delay="100">
+            <h1>Generate your Quiz ! </h1>
+            <div style="margin-bottom: 40px;"></div> <!-- Adding space -->
+            <button type="button" class="btn btn-primary" id="start-generation" style="background-color: #274C77; border-color: #274C77;">Start Generating</button>
+            <div class="social-links">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </section>
+<!-- End Hero -->
 
         <main id="main">
 
@@ -80,39 +82,27 @@
           
               <div class="section-title">
                 <h2>Upload Your PDF</h2>
-              </div>         
+              </div>    
               <div class="row justify-content-center">
-                <div class="col-lg-6">
-                  <div class="card p-5" style="height: 300px;">
-                    <form id="pdf-upload-form">
-                      <div class="mb-4 text-center">
-                        <label for="pdf-file" class="form-label">Choose a PDF file:</label>
-                        <div class="input-group">
-                          <input class="form-control" type="file" id="pdf-file" accept=".pdf">
+                <div class="col-lg-8">
+                  <div class="card p-5" style="height: 450px; width: 850px;">
+                    <div class="card-content d-flex flex-column justify-content-between h-100">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div class="mb-4 text-center">
+                                <label for="pdf-file" class="form-label" style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="file" id="pdf-file" accept=".pdf">
+                                </div>
+                            </div>
                         </div>
-                      </br>
-                    </br>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="start-generation2" style="background-color: #274C77; border-color: #274C77;">Generate</button>
+                        </div>
+                    </div>
+                </div>
                 
-                      </div>
-                      <div class="text-center">
-                        <button type="button" class="btn btn-primary" id="start-generation">Start Generating</button>
-                      </div>
-                      <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                          // Get a reference to the button
-                          var startGenerationButton = document.getElementById('start-generation');
-                          
-                          // Add a click event listener to the button
-                          startGenerationButton.addEventListener('click', function() {
-                            // Scroll to the #resume section using smooth behavior
-                            document.querySelector('#resume').scrollIntoView({
-                              behavior: 'smooth'
-                            });
-                          });
-                        });
-                        </script>
-                    </form>
-                  </div>
+                
+                
                 </div>
               </div>
           

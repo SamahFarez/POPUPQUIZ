@@ -5,6 +5,31 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Get a reference to the button
+  var startGenerationButton = document.getElementById('start-generation');
+  
+  // Add a click event listener to the button
+  startGenerationButton.addEventListener('click', function() {
+      // Scroll to the #about section using smooth behavior
+      document.querySelector('#about').scrollIntoView({
+          behavior: 'smooth'
+      });
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+  // Get a reference to the button
+  var startGenerationButton = document.getElementById('start-generation2');
+  
+  // Add a click event listener to the button
+  startGenerationButton.addEventListener('click', function() {
+      // Scroll to the #about section using smooth behavior
+      document.querySelector('#resume').scrollIntoView({
+          behavior: 'smooth'
+      });
+  });
+});
 (function() {
   "use strict";
 

@@ -125,20 +125,18 @@ h6 {
   transition: all 0.5s;
   padding: 15px;
   overflow-y: auto;
+  background: none; /* Remove background effect */
 }
 
 @media (max-width: 991px) {
   #header {
-    width: 300px;
-    background: #fff;
-    border-right: 1px solid #e6e9ec;
-    left: -300px;
+ 
   }
 }
 
 @media (min-width: 991px) {
   #main {
-    margin-left: 100px;
+    
   }
 }
 
@@ -168,7 +166,7 @@ h6 {
 .nav-menu a:focus {
   display: flex;
   align-items: center;
-  color: #45505b;
+  color: #274C77;
   padding: 10px 18px;
   margin-bottom: 8px;
   transition: 0.3s;
@@ -189,7 +187,7 @@ h6 {
 .nav-menu a span,
 .nav-menu a:focus span {
   padding: 0 5px 0 7px;
-  color: #45505b;
+  color: #274C77;
 }
 
 @media (min-width: 992px) {
@@ -211,7 +209,7 @@ h6 {
 .nav-menu .active:focus,
 .nav-menu li:hover>a {
   color: #fff;
-  background: #0563bb;
+  background: #274C77;
 }
 
 .nav-menu a:hover span,
@@ -252,7 +250,7 @@ h6 {
 }
 
 .mobile-nav-toggle i {
-  color: #45505b;
+  color: #274C77;
 }
 
 .mobile-nav-active {
@@ -274,7 +272,7 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/bg.jpg") top right no-repeat;
+  background: url("../img/Background1.png") top right no-repeat;
   background-size: cover;
   position: relative;
 }
@@ -287,7 +285,6 @@ h6 {
 
 #hero:before {
   content: "";
-  background: rgba(255, 255, 255, 0.8);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -300,11 +297,11 @@ h6 {
   font-size: 64px;
   font-weight: 700;
   line-height: 56px;
-  color: #45505b;
+  color: #000000;
 }
 
 #hero p {
-  color: #45505b;
+  color: #274C77;
   margin: 15px 0 0 0;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
@@ -322,7 +319,7 @@ h6 {
 #hero .social-links a {
   font-size: 24px;
   display: inline-block;
-  color: #45505b;
+  color: #274C77;
   line-height: 1;
   margin-right: 20px;
   transition: 0.3s;
@@ -353,10 +350,19 @@ h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: 0; 
   overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  background: url("../img/Background2.png") top right no-repeat;
+  background-size: cover;
+  position: relative;
 }
-
+section {
+  margin-left: -15px; /* Adjust this value to match the width of your navbar */
+  margin-right: -15px; /* Adjust this value to match the width of your navbar */
+  padding-top: 80px; /* Adjust as needed based on your navbar height */
+}
 .section-title {
   text-align: center;
   padding-bottom: 30px;
@@ -369,7 +375,7 @@ section {
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
-  color: #45505b;
+  color: #000000;
 }
 
 .section-title h2::before {
@@ -389,7 +395,7 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #0563bb;
+  background: #000000;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -432,6 +438,7 @@ section {
 .about .content p:last-child {
   margin-bottom: 0;
 }
+
 
 /*--------------------------------------------------------------
 # Facts
@@ -492,7 +499,7 @@ section {
   display: block;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
-  color: #45505b;
+  color: #274C77;
 }
 
 .skills .progress .skill .val {
@@ -519,7 +526,7 @@ section {
   font-weight: 700;
   margin-top: 20px;
   margin-bottom: 20px;
-  color: #45505b;
+  color: #274C77;
 }
 
 .resume .resume-item {
@@ -678,12 +685,12 @@ section {
 
 .portfolio .portfolio-wrap .portfolio-info h4 {
   font-size: 20px;
-  color: #45505b;
+  color: #274C77;
   font-weight: 600;
 }
 
 .portfolio .portfolio-wrap .portfolio-info p {
-  color: #45505b;
+  color: #274C77;
   font-size: 14px;
   text-transform: uppercase;
   padding: 0;
@@ -696,7 +703,7 @@ section {
 }
 
 .portfolio .portfolio-wrap .portfolio-links a {
-  color: #45505b;
+  color: #274C77;
   margin: 0 2px;
   font-size: 28px;
   display: inline-block;
@@ -840,7 +847,7 @@ section {
 }
 
 .services .icon-box h4 a {
-  color: #45505b;
+  color: #274C77;
   transition: ease-in-out 0.3s;
 }
 
@@ -943,12 +950,7 @@ section {
   text-align: center;
 }
 
-.testimonials .testimonial-item .testimonial-img {
-  width: 120px;
-  border-radius: 50%;
-  border: 4px solid #fff;
-  margin: 0 auto;
-}
+
 
 .testimonials .testimonial-item h3 {
   font-size: 20px;
@@ -1037,7 +1039,7 @@ section {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 5px;
-  color: #45505b;
+  color: #274C77;
 }
 
 .contact .info p {
@@ -1153,7 +1155,7 @@ section {
 --------------------------------------------------------------*/
 #footer {
   background: #f7f8f9;
-  color: #45505b;
+  color: #274C77;
   font-size: 14px;
   text-align: center;
   padding: 30px 0;
@@ -1221,5 +1223,10 @@ section {
     width: 300px; /* Adjust width as needed */
     height: 300px; /* Adjust height as needed */
   }
-    /* Style for the "Validate Quiz" button */
+  .card {
+    background-color: #9DACBD;
+  }
+  
+ 
+  
   
