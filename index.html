@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -15,7 +15,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -24,6 +26,10 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Icons File -->
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/trash.css' rel='stylesheet'>
+
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -58,147 +64,410 @@
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-      <section id="hero" class="d-flex flex-column justify-content-center">
-        <div class="container" data-aos="zoom-in" data-aos-delay="100">
-            <h1>Generate your Quiz ! </h1>
-            <div style="margin-bottom: 40px;"></div> <!-- Adding space -->
-            <button type="button" class="btn btn-primary" id="start-generation" style="background-color: #274C77; border-color: #274C77;">Start Generating</button>
-            <div class="social-links">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Generate your Quiz ! </h1>
+      <div style="margin-bottom: 40px;"></div> <!-- Adding space -->
+      <button type="button" class="btn btn-primary" id="start-generation"
+        style="background-color: #274C77; border-color: #274C77;">Start Generating</button>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Upload Your PDF</h2>
         </div>
-    </section>
-<!-- End Hero -->
-
-        <main id="main">
-
-          <!-- ======= About Section ======= -->
-          <section id="about" class="about">
-            <div class="container" data-aos="fade-up">
-          
-              <div class="section-title">
-                <h2>Upload Your PDF</h2>
-              </div>    
-              <div class="row justify-content-center">
-                <div class="col-lg-8">
-                  <div class="card p-5" style="height: 450px; width: 850px;">
-                    <div class="card-content d-flex flex-column justify-content-between h-100">
-                        <div class="d-flex flex-column justify-content-center align-items-center">
-                            <div class="mb-4 text-center">
-                                <label for="pdf-file" class="form-label" style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="file" id="pdf-file" accept=".pdf">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary" id="start-generation2" style="background-color: #274C77; border-color: #274C77;">Generate</button>
-                        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card p-5" style="height: 450px; width: 850px;">
+              <div class="card-content d-flex flex-column justify-content-between h-100">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <div class="mb-4 text-center">
+                    <label for="pdf-file" class="form-label"
+                      style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
+                    <div class="input-group">
+                      <input class="form-control" type="file" id="pdf-file" accept=".pdf">
                     </div>
+                  </div>
                 </div>
-                
-                
-                
+                <div class="text-center">
+                  <button type="button" class="btn btn-primary" id="start-generation2"
+                    style="background-color: #274C77; border-color: #274C77;">Generate</button>
                 </div>
               </div>
-          
             </div>
-          </section>
-    
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">
       <div class="container" data-aos="fade-up">
-    
+
         <div class="section-title">
           <h2>Your Quiz</h2>
           <p>You Can Add, Modify, Delete your quiz.</p>
+          <p>Check the correct answers</p>
+
         </div>
-    
+
         <div class="row">
           <div class="col-lg-6">
-            <h3 class="resume-title">Generated quiz</h3>
             <!-- Quiz Display Section -->
             <div class="resume-item pb-0">
               <!-- Sample Quiz Questions -->
-              <div class="quiz-question">
-                <p><strong>Question 1:</strong> What is the capital of France?</p>
-                <ul>
-                  <li><input type="radio" name="q1" value="a"> Paris</li>
-                  <li><input type="radio" name="q1" value="c"> Madrid</li>
-                  <li style="color: green;"><input type="radio" name="q1" value="d" checked> Berlin</li>
-                </ul>
-              </div>
-              <div class="quiz-question">
-                <p><strong>Question 2:</strong> What is 2 + 2?</p>
-                <ul>
-                  <li><input type="radio" name="q2" value="a"> 3</li>
-                  <li><input type="radio" name="q2" value="c"> 5</li>
-                  <li style="color: green;"><input type="radio" name="q2" value="d" checked> 6</li>
-                </ul>
+              <div class="quiz-questions">
+                <div class="quiz-question">
+                  <strong class="question-title">Question 1:</strong>
+                  <div class="question-text">
+                    <span class="question-text-content">What is the capital of France?</span>
+                    <!-- Replace button with box-icon -->
+                    <div class="question-buttons">
+                      <box-icon name='edit' color='#001d43'></box-icon>
+                      <box-icon name='trash' color='#001d43'></box-icon>
+                    </div>
+                  </div>
+                  <ul class="answer-options">
+                    <li><input type="checkbox"  name="q1" value="a"> Paris</li>
+                    <li><input type="checkbox"  name="q1" value="c"> Madrid</li>
+                    <li><input type="checkbox" name="q1" value="d" checked> Berlin</li>
+                  </ul>
+                </div>
+                <div class="quiz-question">
+                  <strong class="question-title">Question 2:</strong>
+                  <div class="question-text">
+                    <span class="question-text-content">What is the capital of France?</span>
+                    <!-- Replace button with box-icon -->
+                    <div class="question-buttons">
+                      <box-icon name='edit' color='#001d43'></box-icon>
+                      <box-icon name='trash' color='#001d43'></box-icon>
+                    </div>
+                  </div>
+                  <ul class="answer-options">
+                    <li><input type="checkbox"  name="q2" value="a" > Paris</li>
+                    <li><input type="checkbox"  name="q2" value="c" > Madrid</li>
+                    <li><input type="checkbox" name="q2" value="d" checked> Berlin</li>
+                  </ul>
+                </div>
               </div>
               <!-- Add Question Button -->
               <button type="button" class="btn btn-primary mt-3">Add Question</button>
             </div>
-            <!-- End Quiz Display Section -->
-          </div>
-    
-          <div class="col-lg-6">
-            <h3 class="resume-title">Edited quiz</h3>
-            <!-- Quiz Editing Section -->
-            <div class="resume-item">
-              <!-- Empty Quiz Editing Fields -->
-              <div class="quiz-question">
-                <input type="text" class="form-control mb-2" placeholder="Enter Question">
-                <input type="text" class="form-control mb-2" placeholder="Option A">
-                <input type="text" class="form-control mb-2" placeholder="Option B">
-                <input type="text" class="form-control mb-2" placeholder="Option C">
-                <input type="text" class="form-control mb-2" placeholder="Option D">
+
+            <div id="quizEditingSection" style="display: none;">
+              <div class="col-lg-6">
+                <h3 class="resume-title">Additional question</h3>
+                <div class="resume-item">
+                  <div class="answer-options">
+                    <input type="text" class="form-control mb-2" id="questionInput" placeholder="Enter Question">
+                    <div style="margin-top: 2%;
+                    margin-left: 5%;
+                    margin-bottom: 2%;" class="answer-options-div">
+                      <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
+                      </li>
+                      <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
+                      </li>
+                    </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer Field</button>
+
+                  </div>
+                  <div id="remark" style="color: blue; margin: 10px;"></div>
+                  <button type="button" class="btn btn-primary mt-3">Add The Question</button>
+
+
+                </div>
               </div>
-              <!-- Validate Quiz Button -->
-              <button type="button" class="btn btn-primary mt-3">Add Question</button>
             </div>
-            <!-- End Quiz Editing Section -->
-          </div>
-          
-          <button type="button" class="btn btn-success mt-3" id="validate-quiz-button">Validate Quiz</button>
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              // Get a reference to the button
-              var validateQuizButton = document.getElementById('validate-quiz-button');
-              
-              // Add a click event listener to the button
-              validateQuizButton.addEventListener('click', function() {
-                // Scroll to the #portfolio section using smooth behavior
-                document.querySelector('#portfolio').scrollIntoView({
-                  behavior: 'smooth'
-                });
-              });
-            });
-            </script>         
+            <!-- End Quiz Display Section -->
+          </div><button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 70%;">Validate Quiz</button>
         </div>
-    
+
+
+
+        <style>
+          .edit-field {
+            width: 100%;
+            /* Match the width to form-control class */
+            padding: 0.375rem 0.75rem;
+            /* Match the padding to form-control class */
+            margin-bottom: 0.5rem;
+            /* Match the margin-bottom to mb-2 class */
+            /* Match the font-size to form-control class */
+            line-height: 1.5;
+            /* Match the line-height to form-control class */
+            color: #000000;
+            /* Match the text color to form-control class */
+            background-color: #fff;
+            /* Match the background color to form-control class */
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            /* Match the border to form-control class */
+            border-radius: 0.25rem;
+            /* Match the border-radius to form-control class */
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            /* Match the transition to form-control class */
+          }
+
+          .edit-field:focus {
+            color: #000000;
+            /* Match the focus color to form-control class */
+            background-color: #fff;
+            /* Match the focus background color to form-control class */
+            border-color: #80bdff;
+            /* Match the focus border color to form-control class */
+            outline: 0;
+            /* Remove default outline */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            /* Match the focus box-shadow to form-control class */
+          }
+
+          .col-lg-6 {
+            flex: 0 0 70%;
+            width: 60%;
+          }
+
+          .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-.5 * var(--bs-gutter-x));
+            margin-left: calc(-.5 * var(--bs-gutter-x));
+            align-items: center;
+            justify-content: center;
+          }
+
+          .question-buttons {
+            display: flex;
+            align-content: space-between;
+          }
+
+
+          .question-title {
+            color: #002A63;
+            font-size: 22px;
+            display: inline-block;
+          }
+
+          .question-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .question-text-content,
+          .edit-field,
+          .editted-field {
+            margin-top: 2%;
+            margin-left: 5%;
+            margin-bottom: 2%;
+          }
+
+          .question-buttons {
+            /* Styles for the buttons */
+          }
+
+          .answer-options {
+            margin-left: 6%;
+          }
+
+          .correct-answer {
+            color: green;
+          }
+        </style>
+        <script>
+          // Function to display a remark to the user
+          function displayRemark(message, color = 'blue') {
+            const remarkElement = document.getElementById('remark');
+            remarkElement.textContent = message;
+            remarkElement.style.color = color;
+          }
+
+          // Example usage:
+
+
+          document.addEventListener('click', function (event) {
+            const questionInput = document.querySelector('#questionInput');
+            const answerOptionInputs = document.querySelectorAll('.answer-option');
+
+            // Function to check if the fields are filled
+            function areFieldsFilled() {
+              // Check question input
+              if (questionInput.value.trim() === '') {
+                console.log("question not filled");
+                displayRemark("Please fill in all required fields before proceeding.", 'red');
+                return false;
+              }
+              // Check answer option inputs
+              for (let input of answerOptionInputs) {
+                if (input.value.trim() === '') {
+                  console.log("at least one answer not field");
+                  displayRemark("Please fill in all required fields before proceeding.", 'red');
+                  return false;
+                }
+              }
+              console.log("all filled");
+              return true;
+            }
+
+            // Function to enable/disable the "Add Question" button based on field status
+            function updateAddQuestionButton() {
+              addQuestionBtn.disabled = !areFieldsFilled();
+            }
+
+            const buttonText = event.target.textContent.trim(); // Getting the text content of the button and removing extra spaces
+            console.log("Button clicked"); // Log to console when button is clicked
+
+            if (event.target.classList.contains('btn-primary')) {
+              if (buttonText === 'Add Question') { // Checking if the button text is 'Add Question'
+                const quizEditingSection = document.querySelector('#quizEditingSection');
+                if (quizEditingSection) {
+                  quizEditingSection.style.display = 'block'; // Showing the quiz editing section
+                  event.target.style.display = 'none';
+                  console.log("Quiz editing section displayed"); // Log to console when quiz editing section is displayed
+                }
+              } else if (buttonText === 'Add The Question') {
+
+                const questionInput = document.querySelector('#questionInput');
+                const answerOptionInputs = document.querySelectorAll('.answer-option');
+
+                // Construct the new question structure
+                const newQuestion = document.createElement('div');
+                newQuestion.classList.add('quiz-question');
+                newQuestion.innerHTML = `
+        <strong class="question-title">New Question:</strong>
+        <div class="question-text">
+          <span class="question-text-content">${questionInput.value}</span>
+          <!-- Replace button with box-icon -->
+          <div class="question-buttons">
+            <box-icon name='edit' color='#001d43'></box-icon>
+            <box-icon name='trash' color='#001d43'></box-icon>
+          </div>
+        </div>
+        <ul class="answer-options">
+          ${Array.from(answerOptionInputs).map((input, index) => `<li><input type="checkbox" value="${String.fromCharCode(97 + index)}"> ${input.value}</li>`).join('')}
+        </ul>
+      `;
+
+                // Append the new question to the quiz section
+                const quizSection = document.querySelector('.quiz-questions');
+                quizSection.appendChild(newQuestion);
+
+                // Optionally, you can clear the input fields
+                questionInput.value = '';
+                answerOptionInputs.forEach(input => input.value = '');
+
+                // Optionally, display a remark
+                updateQuestionNumbering()
+                displayRemark("New question added successfully!", 'green');
+
+              }
+            } else if (event.target.classList.contains('btn-secondary')) {
+              if (buttonText === 'Add Answer Field') { // Checking if the button text is 'Add Answer Field'
+                const quizEditingSection = document.querySelector('#quizEditingSection');
+
+                if (areFieldsFilled()) {
+                  const answerOption = document.createElement('li');
+                  answerOption.innerHTML = `<input type='text' class='answer-option form-control mb-2' placeholder='Enter Answer Option'>`;
+                  const answerOptionsList = quizEditingSection.querySelector('.answer-options-div');
+                  answerOptionsList.appendChild(answerOption);
+                  
+                }
+              }
+            }
+          });
+
+
+
+          function updateQuestionNumbering() {
+            const quizQuestions = document.querySelectorAll('.quiz-question');
+            quizQuestions.forEach((question, index) => {
+              question.querySelector('.question-title').textContent = `Question ${index + 1}:`;
+            });
+          }
+
+
+          const iconCont = document.querySelector('.quiz-questions');
+
+          iconCont.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BOX-ICON') { // Check if the clicked element is a box-icon
+              const icon = event.target;
+              const div = icon.closest('.quiz-question');
+
+              if (icon.getAttribute('name') === 'edit') {
+                const span = div.querySelector('span');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = span.textContent.trim();
+
+                input.classList.add('edit-field');
+                // Replace span with input for editing
+                span.replaceWith(input);
+
+                icon.setAttribute('name', 'save'); // Change icon to 'save'
+
+              } else if (icon.getAttribute('name') === 'save') {
+                const input = div.querySelector('input');
+                const span = document.createElement('span');
+                span.textContent = input.value.trim();
+
+                span.classList.add('editted-field');
+                // Replace input with span after editing
+                input.replaceWith(span);
+
+                icon.setAttribute('name', 'edit'); // Change icon back to 'edit'
+
+              } else if (icon.getAttribute('name') === 'trash') {
+                console.log("hello");
+                div.remove();
+                updateQuestionNumbering();
+              }
+            }
+          });
+        </script>
+
+
+
+        
+      </div>
+
       </div>
     </section>
-    
+
+
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio section-bg">
       <div class="container" data-aos="fade-up">
-    
+
         <div class="section-title">
           <h2>Qr code</h2>
           <p>Your quiz QR code is ready.</p>
         </div>
-    
+
         <!-- Display static QR code image -->
         <div id="qr-code-container">
           <img src="assets/img/qr-code/qr.png" alt="QR code">
         </div>
-    
+
       </div>
     </section><!-- End Portfolio Section -->
 
@@ -297,7 +566,8 @@
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -310,9 +580,12 @@
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
+  <!-- icons JS File -->
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
- <!--  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>-->
+  <!--  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>-->
 
 </body>
 
