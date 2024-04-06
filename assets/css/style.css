@@ -362,6 +362,7 @@ section {
   margin-left: -15px; /* Adjust this value to match the width of your navbar */
   margin-right: -15px; /* Adjust this value to match the width of your navbar */
   padding-top: 80px; /* Adjust as needed based on your navbar height */
+  height: fit-content;
 }
 .section-title {
   text-align: center;

@@ -30,6 +30,18 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+document.addEventListener('DOMContentLoaded', function() {
+  // Get a reference to the button
+  var startGenerationButton = document.getElementById('validate-quiz-button');
+  
+  // Add a click event listener to the button
+  startGenerationButton.addEventListener('click', function() {
+      // Scroll to the #about section using smooth behavior
+      document.querySelector('#portfolio').scrollIntoView({
+          behavior: 'smooth'
+      });
+  });
+});
 (function() {
   "use strict";
 
@@ -293,3 +305,8 @@ document.addEventListener('DOMContentLoaded', function() {
   new PureCounter();
 
 })()
+
+/* 
+Quiz Part
+*/
+
