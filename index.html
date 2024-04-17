@@ -30,6 +30,11 @@
   <!-- Icons File -->
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/trash.css' rel='stylesheet'>
 
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Countdown CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -56,7 +61,7 @@
         <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
         <li><a href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
         <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
-        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
+        <li><a href="#timer" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
@@ -146,8 +151,8 @@
                     </div>
                   </div>
                   <ul class="answer-options">
-                    <li><input type="checkbox"  name="q1" value="a"> Paris</li>
-                    <li><input type="checkbox"  name="q1" value="c"> Madrid</li>
+                    <li><input type="checkbox" name="q1" value="a"> Paris</li>
+                    <li><input type="checkbox" name="q1" value="c"> Madrid</li>
                     <li><input type="checkbox" name="q1" value="d" checked> Berlin</li>
                   </ul>
                 </div>
@@ -162,8 +167,8 @@
                     </div>
                   </div>
                   <ul class="answer-options">
-                    <li><input type="checkbox"  name="q2" value="a" > Paris</li>
-                    <li><input type="checkbox"  name="q2" value="c" > Madrid</li>
+                    <li><input type="checkbox" name="q2" value="a"> Paris</li>
+                    <li><input type="checkbox" name="q2" value="c"> Madrid</li>
                     <li><input type="checkbox" name="q2" value="d" checked> Berlin</li>
                   </ul>
                 </div>
@@ -185,7 +190,8 @@
                       </li>
                       <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
                       </li>
-                    </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer Field</button>
+                    </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer
+                      Field</button>
 
                   </div>
                   <div id="remark" style="color: blue; margin: 10px;"></div>
@@ -196,7 +202,8 @@
               </div>
             </div>
             <!-- End Quiz Display Section -->
-          </div><button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 70%;">Validate Quiz</button>
+          </div><button type="button" class="btn btn-success mt-3" style="background-color: #274C77;border-color: #274C77;" id="validate-quiz-button"
+            style="width: 70%;">Validate Quiz</button>
         </div>
 
 
@@ -389,7 +396,7 @@
                   answerOption.innerHTML = `<input type='text' class='answer-option form-control mb-2' placeholder='Enter Answer Option'>`;
                   const answerOptionsList = quizEditingSection.querySelector('.answer-options-div');
                   answerOptionsList.appendChild(answerOption);
-                  
+
                 }
               }
             }
@@ -446,30 +453,126 @@
 
 
 
-        
+
       </div>
 
       </div>
     </section>
 
-
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Qr code</h2>
-          <p>Your quiz QR code is ready.</p>
-        </div>
-
-        <!-- Display static QR code image -->
-        <div id="qr-code-container">
-          <img src="assets/img/qr-code/qr.png" alt="QR code">
-        </div>
-
+    <section id="timer" class="text-center">
+      <div class="section-title" style="margin-top: 65px;">
+        <h2>Qr code</h2>
       </div>
-    </section><!-- End Portfolio Section -->
+
+      <div id="timer-container" style="margin-top: 80px;" style="width: 50%; margin: auto;">
+        <h3>Set Minutes:</h3>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" onclick="decrementMinutes()">-</button>
+          </div>
+          <input type="number" id="minutes" class="form-control" min="1" value="1">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="incrementMinutes()">+</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" style="margin-top:50px; margin-bottom: 150px; background-color: #274C77 !important;" onclick="startTimer()">Start Quiz</button>
+      </div>
+      <div id="countdown" class="mt-3"></div>
+      <!-- Display static QR code image -->
+      <div id="qr-code-container" class="mt-3" style="display: none;">
+        <img src="./assets/img/qr-code/qr.png" alt="QR code" class="img-fluid">
+      </div>
+      <button id="see-results" class="btn btn-primary mt-3" style="display: none;background-color: #274C77;margin-bottom: 100px;border-color: #274C77;">See Results</button>
+    </section>
+    
+
+
+
+    <script>
+      function startTimer() {
+        var minutes = parseInt(document.getElementById("minutes").value);
+        var seconds = minutes * 60;
+        var timerDisplay = document.getElementById("countdown");
+        var seeResultsButton = document.getElementById("see-results");
+        var qrCodeContainer = document.getElementById("qr-code-container");
+        var timerContainer = document.getElementById("timer-container");
+
+        // Hide setting of time and start button
+        timerContainer.style.display = "none";
+
+        // Clear any existing countdown numbers
+        timerDisplay.innerHTML = '';
+
+        // Start the countdown
+        var countdown = setInterval(function () {
+          var minutesLeft = Math.floor(seconds / 60);
+          var secondsLeft = seconds % 60;
+
+          // Update the timer display with the countdown numbers
+          timerDisplay.innerHTML = `<span class="countdown-number">${minutesLeft.toString().padStart(2, '0')}</span>:<span class="countdown-number">${secondsLeft.toString().padStart(2, '0')}</span>`;
+          seeResultsButton.style.textAlign = "center";
+
+          if (seconds <= 0) {
+            clearInterval(countdown);
+            timerDisplay.textContent = "Time's up!";
+            seeResultsButton.style.display = "block";
+
+          } else {
+            seconds--;
+            qrCodeContainer.style.display = "block"; // Display the QR code container
+          }
+        }, 1000);
+      }
+
+      function incrementMinutes() {
+        var minutesInput = document.getElementById("minutes");
+        var currentMinutes = parseInt(minutesInput.value);
+        minutesInput.value = currentMinutes + 1;
+      }
+
+      function decrementMinutes() {
+        var minutesInput = document.getElementById("minutes");
+        var currentMinutes = parseInt(minutesInput.value);
+        if (currentMinutes > 1) {
+          minutesInput.value = currentMinutes - 1;
+        }
+      }
+
+      document.getElementById("see-results").addEventListener("click", function () {
+        // Scroll to the "results" section
+        document.getElementById("results").scrollIntoView({ behavior: "smooth" });
+      });
+    </script>
+
+    <style>
+      @keyframes countdown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .countdown-number {
+        animation: countdown 0.5s ease-out;
+        font-size: 35px;
+      }
+
+      #timer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+
+
+
+
+    <!-- End Timer Section -->
 
 
     <!-- ======= Contact Section ======= -->
