@@ -1247,3 +1247,122 @@ section {
 .card {
   background-color: #9DACBD;
 }
+
+/* Quiz section style*/
+.edit-field {
+  width: 100%;
+  /* Match the width to form-control class */
+  padding: 0.375rem 0.75rem;
+  /* Match the padding to form-control class */
+  margin-bottom: 0.5rem;
+  /* Match the margin-bottom to mb-2 class */
+  /* Match the font-size to form-control class */
+  line-height: 1.5;
+  /* Match the line-height to form-control class */
+  color: #000000;
+  /* Match the text color to form-control class */
+  background-color: #fff;
+  /* Match the background color to form-control class */
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  /* Match the border to form-control class */
+  border-radius: 0.25rem;
+  /* Match the border-radius to form-control class */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  /* Match the transition to form-control class */
+}
+
+.edit-field:focus {
+  color: #000000;
+  /* Match the focus color to form-control class */
+  background-color: #fff;
+  /* Match the focus background color to form-control class */
+  border-color: #80bdff;
+  /* Match the focus border color to form-control class */
+  outline: 0;
+  /* Remove default outline */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  /* Match the focus box-shadow to form-control class */
+}
+
+.col-lg-6 {
+  flex: 0 0 70%;
+  width: 60%;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+  align-items: center;
+  justify-content: center;
+}
+
+.question-buttons {
+  display: flex;
+  align-content: space-between;
+}
+
+
+.question-title {
+  color: #002A63;
+  font-size: 22px;
+  display: inline-block;
+}
+
+.question-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text-content,
+.edit-field,
+.editted-field {
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-bottom: 2%;
+}
+
+.question-buttons {
+  /* Styles for the buttons */
+}
+
+.answer-options {
+  margin-left: 6%;
+}
+
+.correct-answer {
+  color: green;
+}
+
+/*
+QR code part/ timer
+*/ 
+
+@keyframes countdown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.countdown-number {
+  animation: countdown 0.5s ease-out;
+  font-size: 35px;
+}
+
+#timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
