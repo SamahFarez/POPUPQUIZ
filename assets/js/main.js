@@ -310,158 +310,312 @@ document.addEventListener('DOMContentLoaded', function () {
 Quiz Part
 */
 
-// Function to display a remark to the user
-function displayRemark(message, color = 'blue') {
-  const remarkElement = document.getElementById('remark');
-  remarkElement.textContent = message;
-  remarkElement.style.color = color;
+// Sample data structure containing quiz questions
+var quizData = [
+  {
+    question: "What is the capital of France?",
+    options: [
+      { text: "Paris", isCorrect: true },
+      { text: "Madrid", isCorrect: false },
+      { text: "Berlin", isCorrect: false }
+    ]
+  },
+  {
+    question: "What is the capital of Spain?",
+    options: [
+      { text: "Paris", isCorrect: false },
+      { text: "Madrid", isCorrect: true },
+      { text: "Berlin", isCorrect: false }
+    ]
+  },
+];
+// Function to generate quiz HTML from data
+function generateQuizHTML() {
+  var quizDisplaySection = document.getElementById("quizDisplaySection");
+
+  // Loop through each question in the quiz data
+  quizData.forEach(function (questionData, index) {
+    var questionNumber = index + 1;
+    var questionHTML = `
+            <div class="quiz-question">
+              <strong class="question-title">Question ${questionNumber}:</strong>
+              <div class="question-text">
+                <span class="question-text-content">${questionData.question}</span>
+                <!-- Replace button with box-icon -->
+                <div class="question-buttons">
+                  <box-icon name='edit' color='#001d43'></box-icon>
+                  <box-icon name='trash' color='#001d43'></box-icon>
+                </div>
+              </div>
+              <ul class="answer-options">`;
+
+    // Loop through each option for the current question
+    questionData.options.forEach(function (option, optionIndex) {
+      console.log(optionIndex)
+      var isChecked = option.isCorrect ? "checked" : "";
+      var liStyle = isChecked ? "correct-answer" : ""; // Add style if option is correct answer
+      questionHTML += `
+              <li class="${liStyle}"><input type="checkbox" name="q${questionNumber}" value="${optionIndex}" ${isChecked}> ${option.text}</li>`;
+    });
+
+    questionHTML += `
+              </ul>
+            </div>`;
+
+    quizDisplaySection.innerHTML += questionHTML;
+  });
 }
 
-// Example usage:
+// Call the function to generate quiz HTML on page load
+window.onload = function () {
+  generateQuizHTML();
+  handleAddQuestionButton()
+  attachCheckboxListeners(); // Attach checkbox event listeners
+  handleIconClicks();
+};
+
+// Function to attach event listeners to checkboxes
+
+function attachCheckboxListeners() {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  console.log("something cheecked");
+  // Loop through each checkbox
+  checkboxes.forEach(function (checkbox) {
+    // Add event listener for change event
+    checkbox.addEventListener('change', function () {
+      const questionIndex = parseInt(this.name.replace("q", "")) - 1;
+      const optionIndex = parseInt(this.value);
+
+      // Check if the checkbox is checked
+      if (this.checked) {
+        // If checked, add class to the parent <li> element
+        this.parentElement.classList.add('correct-answer');
+        quizData[questionIndex].options[optionIndex].isCorrect = true;
+      } else {
+        // If not checked, remove the class
+        this.parentElement.classList.remove('correct-answer');
+        quizData[questionIndex].options[optionIndex].isCorrect = false;
+      }
+      console.log(quizData)
+    });
+  });
+}
+
+function handleIconClicks() {
+  // Function to handle icon clicks (edit, save, or trash)
+  const iconCont = document.getElementById('quizDisplaySection');
+  iconCont.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BOX-ICON') { // Check if the clicked element is a box-icon
+      const icon = event.target;
+      const div = icon.closest('.quiz-question');
+
+      const questionIndex = Array.from(iconCont.children).indexOf(div);
 
 
-document.addEventListener('click', function (event) {
-  const questionInput = document.querySelector('#questionInput');
-  const answerOptionInputs = document.querySelectorAll('.answer-option');
+      if (icon.getAttribute('name') === 'edit') {
+        const span = div.querySelector('span');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = span.textContent.trim();
 
-  // Function to check if the fields are filled
-  function areFieldsFilled() {
-    // Check question input
-    if (questionInput.value.trim() === '') {
-      console.log("question not filled");
-      displayRemark("Please fill in all required fields before proceeding.", 'red');
-      return false;
-    }
-    // Check answer option inputs
-    for (let input of answerOptionInputs) {
-      if (input.value.trim() === '') {
-        console.log("at least one answer not field");
-        displayRemark("Please fill in all required fields before proceeding.", 'red');
-        return false;
+        input.classList.add('edit-field');
+        // Replace span with input for editing
+        span.replaceWith(input);
+
+        icon.setAttribute('name', 'save'); // Change icon to 'save'
+      } else if (icon.getAttribute('name') === 'save') {
+        const input = div.querySelector('input');
+        const span = document.createElement('span');
+        span.textContent = input.value.trim();
+
+        span.classList.add('edited-field');
+        // Replace input with span after editing
+        input.replaceWith(span);
+
+        quizData[questionIndex].question = span.textContent;
+        console.log(quizData)
+        icon.setAttribute('name', 'edit'); // Change icon back to 'edit'
+
+      } else if (icon.getAttribute('name') === 'trash') {
+        quizData.splice(questionIndex, 1);
+        div.remove();
+        console.log(quizData)
+        updateQuestionNumbering();
       }
     }
-    console.log("all filled");
-    return true;
-  }
-
-  // Function to enable/disable the "Add Question" button based on field status
-  function updateAddQuestionButton() {
-    addQuestionBtn.disabled = !areFieldsFilled();
-  }
-
-  const buttonText = event.target.textContent.trim(); // Getting the text content of the button and removing extra spaces
-  console.log("Button clicked"); // Log to console when button is clicked
-
-  if (event.target.classList.contains('btn-primary')) {
-    if (buttonText === 'Add Question') { // Checking if the button text is 'Add Question'
-      const quizEditingSection = document.querySelector('#quizEditingSection');
-      if (quizEditingSection) {
-        quizEditingSection.style.display = 'block'; // Showing the quiz editing section
-        event.target.style.display = 'none';
-        console.log("Quiz editing section displayed"); // Log to console when quiz editing section is displayed
-      }
-    } else if (buttonText === 'Add The Question') {
-
-      const questionInput = document.querySelector('#questionInput');
-      const answerOptionInputs = document.querySelectorAll('.answer-option');
-
-      // Construct the new question structure
-      const newQuestion = document.createElement('div');
-      newQuestion.classList.add('quiz-question');
-      newQuestion.innerHTML = `
-<strong class="question-title">New Question:</strong>
-<div class="question-text">
-<span class="question-text-content">${questionInput.value}</span>
-<!-- Replace button with box-icon -->
-<div class="question-buttons">
-  <box-icon name='edit' color='#001d43'></box-icon>
-  <box-icon name='trash' color='#001d43'></box-icon>
-</div>
-</div>
-<ul class="answer-options">
-${Array.from(answerOptionInputs).map((input, index) => `<li><input type="checkbox" value="${String.fromCharCode(97 + index)}"> ${input.value}</li>`).join('')}
-</ul>
-`;
-
-      // Append the new question to the quiz section
-      const quizSection = document.querySelector('.quiz-questions');
-      quizSection.appendChild(newQuestion);
-
-      // Optionally, you can clear the input fields
-      questionInput.value = '';
-      answerOptionInputs.forEach(input => input.value = '');
-
-      // Optionally, display a remark
-      updateQuestionNumbering()
-      displayRemark("New question added successfully!", 'green');
-
-    }
-  } else if (event.target.classList.contains('btn-secondary')) {
-    if (buttonText === 'Add Answer Field') { // Checking if the button text is 'Add Answer Field'
-      const quizEditingSection = document.querySelector('#quizEditingSection');
-
-      if (areFieldsFilled()) {
-        const answerOption = document.createElement('li');
-        answerOption.innerHTML = `<input type='text' class='answer-option form-control mb-2' placeholder='Enter Answer Option'>`;
-        const answerOptionsList = quizEditingSection.querySelector('.answer-options-div');
-        answerOptionsList.appendChild(answerOption);
-
-      }
-    }
-  }
-});
-
-
-
+  });
+}
 function updateQuestionNumbering() {
   const quizQuestions = document.querySelectorAll('.quiz-question');
   quizQuestions.forEach((question, index) => {
     question.querySelector('.question-title').textContent = `Question ${index + 1}:`;
   });
 }
+function handleAddQuestionButton() {
+  newQuestionNum = quizData.length + 1
+  document.addEventListener('click', function (event) {
+    const questionInput = document.querySelector('#questionInput');
+    const answerOptionInputs = document.querySelectorAll('.answer-option');
+    const nonEmptyInputs = Array.from(answerOptionInputs).filter(function (input) {
+      return input.value.trim() !== '';
+    });
+    const buttonText = event.target.textContent.trim(); // Getting the text content of the button and removing extra spaces
+    console.log("Button clicked"); // Log to console when button is clicked
 
+    if (event.target.classList.contains('btn-primary')) {
+      if (buttonText === 'Add Question') { // Checking if the button text is 'Add Question'
+        const quizEditingSection = document.querySelector('#quizEditingSection');
+        if (quizEditingSection) {
+          quizEditingSection.style.display = 'block'; // Showing the quiz editing section
+          event.target.style.display = 'none';
+          console.log("Quiz editing section displayed"); // Log to console when quiz editing section is displayed
+        }
+      } else if (buttonText === 'Add The Question' && mostFieldsFilled(questionInput, answerOptionInputs)) {
+        // add it to the data structure
+        const questionInputValue = questionInput.value.trim();
+        const answerOptions = Array.from(nonEmptyInputs).map(input => {
+          return { text: input.value.trim(), isCorrect: false };
+        });
 
-const iconCont = document.querySelector('.quiz-questions');
+        // Adding the new question to quizData
+        quizData.push({
+          question: questionInputValue,
+          options: answerOptions
+        });
+        // Construct the new question structure
+        const newQuestion = document.createElement('div');
+        newQuestion.classList.add('quiz-question');
+        const answerOptionInputsArray = Array.from(nonEmptyInputs);
+        let answerOptionsHTML = '';
 
-iconCont.addEventListener('click', (event) => {
-  if (event.target.tagName === 'BOX-ICON') { // Check if the clicked element is a box-icon
-    const icon = event.target;
-    const div = icon.closest('.quiz-question');
+        answerOptionInputsArray.forEach(function (option, optionIndex) {
+          answerOptionsHTML += `
+                      <li><input type="checkbox" name="q${newQuestionNum}" value="${optionIndex}"> ${option.value}</li>`;
+        });
+        newQuestion.innerHTML = `
+        <strong class="question-title">New Question:</strong>
+        <div class="question-text">
+        <span class="question-text-content">${questionInput.value}</span>
+        <!-- Replace button with box-icon -->
+        <div class="question-buttons">
+          <box-icon name='edit' color='#001d43'></box-icon>
+          <box-icon name='trash' color='#001d43'></box-icon>
+        </div>
+        </div>
+        <ul class="answer-options">
+          ${answerOptionsHTML}
+            </ul>
+        `;
 
-    if (icon.getAttribute('name') === 'edit') {
-      const span = div.querySelector('span');
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = span.textContent.trim();
+        // Append the new question to the quiz section
+        const quizSection = document.getElementById('quizDisplaySection');
+        quizSection.appendChild(newQuestion);
 
-      input.classList.add('edit-field');
-      // Replace span with input for editing
-      span.replaceWith(input);
+        // Optionally, you can clear the input fields
+        questionInput.value = '';
+        answerOptionInputs.forEach(input => input.value = '');
 
-      icon.setAttribute('name', 'save'); // Change icon to 'save'
+        // Optionally, display a remark
+        updateQuestionNumbering()
+        attachCheckboxListeners()
+        console.log(quizData)
+        //remove the added fields
+        const answerOptionsList = document.querySelector('.answer-options-div');
+        const excessFields = answerOptionsList.children.length - 2;
+        for (let i = 0; i < excessFields; i++) {
+          answerOptionsList.removeChild(answerOptionsList.lastChild);
+        }
+      }
 
-    } else if (icon.getAttribute('name') === 'save') {
-      const input = div.querySelector('input');
-      const span = document.createElement('span');
-      span.textContent = input.value.trim();
+    } else if (event.target.classList.contains('btn-secondary')) {
+      console.log("secondary button clicked");
+      if (buttonText === 'Add Answer Field') { // Checking if the button text is 'Add Answer Field'
+        console.log("Add Answer Field clicked")
+        const quizEditingSection = document.querySelector('#quizEditingSection');
 
-      span.classList.add('editted-field');
-      // Replace input with span after editing
-      input.replaceWith(span);
+        if (areFieldsFilled(questionInput, answerOptionInputs)) {
+          const answerOption = document.createElement('li');
+          answerOption.innerHTML = `<input type='text' class='answer-option form-control mb-2' placeholder='Enter Answer Option'>`;
+          const answerOptionsList = quizEditingSection.querySelector('.answer-options-div');
+          answerOptionsList.appendChild(answerOption);
 
-      icon.setAttribute('name', 'edit'); // Change icon back to 'edit'
+        }
+      }
+    }
+  });
 
-    } else if (icon.getAttribute('name') === 'trash') {
-      console.log("hello");
-      div.remove();
-      updateQuestionNumbering();
+}
+function areFieldsFilled(questionInput, answerOptionInputs) {
+  // Check question input
+  if (questionInput.value.trim() === '') {
+    console.log("question not filled");
+    displayRemark("Please fill in all required fields before proceeding.", 'red');
+    return false;
+  }
+  // Check answer option inputs
+  for (let input of answerOptionInputs) {
+    if (input.value.trim() === '') {
+      console.log("at least one answer not field");
+      displayRemark("Please fill in all required fields before proceeding.", 'red');
+      return false;
     }
   }
-});
+  console.log("all filled");
+  return true;
+}
+function mostFieldsFilled(questionInput, answerOptionInputs) {
+  // Check question input
+  if (questionInput.value.trim() === '') {
+    console.log("question not filled");
+    displayRemark("Please fill in all required fields before proceeding.", 'red');
+    return false;
+  }
+
+  // Count the number of filled answer option inputs
+  let filledCount = 0;
+  for (let input of answerOptionInputs) {
+    if (input.value.trim() !== '') {
+      filledCount++;
+    }
+  }
+
+  // Check if at least two answer option fields are filled
+  if (filledCount < 2) {
+    console.log("less than two answers filled");
+    displayRemark("Please fill in at least two answer options before proceeding.", 'red');
+    return false;
+  }
+
+  console.log("all filled");
+  return true;
+}
+
+
+function updateAddQuestionButton(addQuestionBtn, questionInput, answerOptionInputs) {
+  addQuestionBtn.disabled = !areFieldsFilled(questionInput, answerOptionInputs);
+}
+
+function displayRemark(message, color = 'blue') {
+  const remarkElement = document.getElementById('remark');
+  remarkElement.textContent = message;
+  remarkElement.style.color = color;
+
+  setTimeout(function() {
+    remarkElement.textContent = '';
+  }, 5000); 
+}
+
+
+
+
+
+
+// Get all checkboxes
 
 /*
 QR code part/ timer
-*/ 
+*/
 
 
 function startTimer() {

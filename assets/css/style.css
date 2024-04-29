@@ -1322,10 +1322,14 @@ section {
 
 .question-text-content,
 .edit-field,
-.editted-field {
+.edited-field {
   margin-top: 2%;
   margin-left: 5%;
   margin-bottom: 2%;
+}
+
+.edit-field{
+  width: 90%;
 }
 
 .question-buttons {
@@ -1339,6 +1343,7 @@ section {
 .correct-answer {
   color: green;
 }
+
 
 /*
 QR code part/ timer
