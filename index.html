@@ -39,7 +39,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  
+
   <!-- =======================================================
   * Template Name: MyResume
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -138,75 +138,39 @@
         <div class="row">
           <div class="col-lg-6">
             <!-- Quiz Display Section -->
-            <div class="resume-item pb-0">
-              <!-- Sample Quiz Questions -->
-              <div class="quiz-questions">
-                <div class="quiz-question">
-                  <strong class="question-title">Question 1:</strong>
-                  <div class="question-text">
-                    <span class="question-text-content">What is the capital of France?</span>
-                    <!-- Replace button with box-icon -->
-                    <div class="question-buttons">
-                      <box-icon name='edit' color='#001d43'></box-icon>
-                      <box-icon name='trash' color='#001d43'></box-icon>
-                    </div>
-                  </div>
-                  <ul class="answer-options">
-                    <li><input type="checkbox"  name="q1" value="a"> Paris</li>
-                    <li><input type="checkbox"  name="q1" value="c"> Madrid</li>
-                    <li><input type="checkbox" name="q1" value="d" checked> Berlin</li>
-                  </ul>
-                </div>
-                <div class="quiz-question">
-                  <strong class="question-title">Question 2:</strong>
-                  <div class="question-text">
-                    <span class="question-text-content">What is the capital of France?</span>
-                    <!-- Replace button with box-icon -->
-                    <div class="question-buttons">
-                      <box-icon name='edit' color='#001d43'></box-icon>
-                      <box-icon name='trash' color='#001d43'></box-icon>
-                    </div>
-                  </div>
-                  <ul class="answer-options">
-                    <li><input type="checkbox"  name="q2" value="a" > Paris</li>
-                    <li><input type="checkbox"  name="q2" value="c" > Madrid</li>
-                    <li><input type="checkbox" name="q2" value="d" checked> Berlin</li>
-                  </ul>
-                </div>
-              </div>
+            <div class="resume-item pb-0" id="quizDisplaySection">
+              <!-- Quiz questions will be generated here -->
               <!-- Add Question Button -->
-              <button type="button" class="btn btn-primary mt-3">Add Question</button>
             </div>
-
-            <div id="quizEditingSection" style="display: none;">
-              <div class="col-lg-6">
-                <h3 class="resume-title">Additional question</h3>
-                <div class="resume-item">
-                  <div class="answer-options">
-                    <input type="text" class="form-control mb-2" id="questionInput" placeholder="Enter Question">
-                    <div style="margin-top: 2%;
-                    margin-left: 5%;
-                    margin-bottom: 2%;" class="answer-options-div">
-                      <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
-                      </li>
-                      <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
-                      </li>
-                    </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer Field</button>
-
-                  </div>
-                  <div id="remark" style="color: blue; margin: 10px;"></div>
-                  <button type="button" class="btn btn-primary mt-3">Add The Question</button>
-                </div>
-              </div>
-            </div>
+            <button type="button" class="btn btn-primary mt-3">Add Question</button>
             <!-- End Quiz Display Section -->
-          </div><button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 70%;">Validate Quiz</button>
-        </div>        
+          </div>
+          <div id="quizEditingSection" style="display: none;">
+            <h3 class="resume-title">Additional question</h3>
+            <div class="resume-item">
+              <div class="answer-options">
+                <input type="text" class="form-control mb-2" id="questionInput" placeholder="Enter Question">
+                <div style="margin-top: 2%;
+                  margin-left: 5%;
+                  margin-bottom: 2%;" class="answer-options-div">
+                  <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
+                  </li>
+                  <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
+                  </li>
+                </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer Field</button>
+
+              </div>
+              <div id="remark" style="color: blue; margin: 10px;"></div>
+              <button type="button" class="btn btn-primary mt-3">Add The Question</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 98%;">Validate
+            Quiz</button>
+        </div>
       </div>
 
       </div>
     </section>
-
 
 
     <section id="timer" class="text-center">
@@ -225,14 +189,17 @@
             <button class="btn btn-outline-secondary" type="button" onclick="incrementMinutes()">+</button>
           </div>
         </div>
-        <button type="button" class="btn btn-success" style="margin-top:50px; margin-bottom: 150px; background-color: #274C77 !important;" onclick="startTimer()">Start Quiz</button>
+        <button type="button" class="btn btn-success"
+          style="margin-top:50px; margin-bottom: 150px; background-color: #274C77 !important;"
+          onclick="startTimer()">Start Quiz</button>
       </div>
       <div id="countdown" class="mt-3"></div>
       <!-- Display static QR code image -->
       <div id="qr-code-container" class="mt-3" style="display: none;">
         <img src="./assets/img/qr-code/qr.png" alt="QR code" class="img-fluid">
       </div>
-      <button id="see-results" class="btn btn-primary mt-3" style="display: none;background-color: #274C77;margin-bottom: 100px;border-color: #274C77;">See Results</button>
+      <button id="see-results" class="btn btn-primary mt-3"
+        style="display: none;background-color: #274C77;margin-bottom: 100px;border-color: #274C77;">See Results</button>
     </section>
 
   </main><!-- End #main -->
