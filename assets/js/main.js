@@ -662,6 +662,7 @@ function startTimer(initialRemainingSeconds) {
     if (remainingSeconds <= 0) { // Use remainingSeconds here
       clearInterval(interval);
       timerDisplay.textContent = "Time's up!";
+      buttonsContainer.style.display = "none";
       seeResultsButton.style.display = "block";
     } else {
       remainingSeconds--; // Decrease remainingSeconds instead of totalSeconds
