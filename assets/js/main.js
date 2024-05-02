@@ -601,99 +601,73 @@ function displayRemark(message, color = 'blue') {
   remarkElement.textContent = message;
   remarkElement.style.color = color;
 
-  setTimeout(function () {
+  setTimeout(function() {
     remarkElement.textContent = '';
-  }, 5000);
+  }, 5000); 
 }
+
+
+
+
+
 
 // Get all checkboxes
 
 /*
 QR code part/ timer
 */
-var interval;
-var totalSeconds;
-var remainingSeconds; // Added to store remaining time
-var initialHours;
-var initialMinutes;
-var initialSeconds;
-var timerDisplay = document.getElementById("countdown");
-var seeResultsButton = document.getElementById("see-results");
-var qrCodeContainer = document.getElementById("qr-code-container");
-var timerContainer = document.getElementById("timer-container");
-var inputGroup = document.getElementById("input-group");
-var startBtn = document.getElementById("startBtn");
-var pauseBtn = document.getElementById("pauseBtn");
-var resumeBtn = document.getElementById("resumeBtn");
-var resetBtn = document.getElementById("resetBtn");
-var buttonsContainer = document.getElementById("buttons-container");
 
-function startTimer(initialRemainingSeconds) {
-  var hours = parseInt(document.getElementById("hours").value);
+
+function startTimer() {
   var minutes = parseInt(document.getElementById("minutes").value);
-  var seconds = parseInt(document.getElementById("seconds").value);
-  
-  if (initialRemainingSeconds === undefined) { // If initialRemainingSeconds is not passed, calculate totalSeconds
-    totalSeconds = hours * 3600 + minutes * 60 + seconds;
-  } else { // If initialRemainingSeconds is passed, use it
-    totalSeconds = initialRemainingSeconds;
-  }
-
-  // Store total seconds in remaining seconds initially
-  remainingSeconds = totalSeconds;
+  var seconds = minutes * 60;
+  var timerDisplay = document.getElementById("countdown");
+  var seeResultsButton = document.getElementById("see-results");
+  var qrCodeContainer = document.getElementById("qr-code-container");
+  var timerContainer = document.getElementById("timer-container");
 
   // Hide setting of time and start button
-  inputGroup.style.display = "none";
-  startBtn.style.display= "none";
-  buttonsContainer.style.display= "flex";
-  timerDisplay.style.display = "block";
-  timerDisplay.style.fontSize = "25px"; // Display the QR code container
-  timerDisplay.style.fontWeight = "bold"; // Display the QR code container
+  timerContainer.style.display = "none";
+
+  // Clear any existing countdown numbers
+  timerDisplay.innerHTML = '';
 
   // Start the countdown
-  interval = setInterval(function () {
-    var hoursLeft = Math.floor(remainingSeconds / 3600); // Use remainingSeconds here
-    var minutesLeft = Math.floor((remainingSeconds % 3600) / 60); // Use remainingSeconds here
-    var secondsLeft = remainingSeconds % 60; // Use remainingSeconds here
+  var countdown = setInterval(function () {
+    var minutesLeft = Math.floor(seconds / 60);
+    var secondsLeft = seconds % 60;
 
     // Update the timer display with the countdown numbers
-    timerDisplay.textContent = `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+    timerDisplay.innerHTML = `<span class="countdown-number">${minutesLeft.toString().padStart(2, '0')}</span>:<span class="countdown-number">${secondsLeft.toString().padStart(2, '0')}</span>`;
+    seeResultsButton.style.textAlign = "center";
 
-    if (remainingSeconds <= 0) { // Use remainingSeconds here
-      clearInterval(interval);
+    if (seconds <= 0) {
+      clearInterval(countdown);
       timerDisplay.textContent = "Time's up!";
-      buttonsContainer.style.display = "none";
       seeResultsButton.style.display = "block";
+
     } else {
-      remainingSeconds--; // Decrease remainingSeconds instead of totalSeconds
+      seconds--;
       qrCodeContainer.style.display = "block"; // Display the QR code container
-      generateQRCode('https://www.google.com'); // Generate QR code
     }
   }, 1000);
 }
 
-
-function pauseTimer() {
-  clearInterval(interval);
-  pauseBtn.style.display = "none";
-  resumeBtn.style.display = "inline-block";
+function incrementMinutes() {
+  var minutesInput = document.getElementById("minutes");
+  var currentMinutes = parseInt(minutesInput.value);
+  minutesInput.value = currentMinutes + 1;
 }
 
-function resumeTimer() {
-  // Restart the timer with remaining time
-  startTimer(remainingSeconds); // Pass remainingSeconds as an argument
-  pauseBtn.style.display = "inline-block";
-  resumeBtn.style.display = "none";
+function decrementMinutes() {
+  var minutesInput = document.getElementById("minutes");
+  var currentMinutes = parseInt(minutesInput.value);
+  if (currentMinutes > 1) {
+    minutesInput.value = currentMinutes - 1;
+  }
 }
 
-function resetTimer() {
-  clearInterval(interval);
-  startTimer(totalSeconds); // Pass remainingSeconds as an argument
-
-}
-
-function generateQRCode(qrCodeLink) {
-  var qrCodeImg = document.getElementById("qrCodeImg");
-  qrCodeImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrCodeLink);
-}
-
+document.getElementById("see-results").addEventListener("click", function () {
+  // Scroll to the "results" section
+  document.getElementById("results").scrollIntoView({ behavior: "smooth" });
+});
