@@ -1,0 +1,518 @@
+[
+  {
+    "name": "John Doe",
+    "mark": 85
+  },
+  {
+    "name": "Imene Ait",
+    "mark": 100
+  },
+  {
+    "name": "Jane Smith",
+    "mark": 92
+  },
+  {
+    "name": "Alice Johnson",
+    "mark": 78
+  },
+  {
+    "name": "Larbi SAIDCHIKH",
+    "email": "larbi.saidchikh@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Beghou Imed Eddine",
+    "email": "imed.eddine.beghou@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hadjer Bouallag",
+    "email": "hadjer.bouallag@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Dib abdelmounaim",
+    "email": "abdelmounaim.dib@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mohammed Chaker BAAZIZ",
+    "email": "mohammed.baaziz@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Manel Bhn",
+    "email": "manel.benhanifia@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Farez Samah ikram",
+    "email": "samah.farez@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mohamed Benabdelouahad",
+    "email": "mohamed.benabdelouahad@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "KADA Yakoub",
+    "email": "yakoubkadanhsm@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Amira",
+    "email": "amira.boudaoud@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Lyna selsabila Remadi",
+    "email": "lyna.selsabila.remadi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Ines BENCHERIF",
+    "email": "Ines.bencherif@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bazoula Nouha",
+    "email": "nouha.bazoula@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Nesrine Abdelhak",
+    "email": "nesrine.abdelhak@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mohammedi leila isra",
+    "email": "leila.isra.mohammedi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Ahmed Thebat Mazouz",
+    "email": "ahmed.mazouz@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Lahlou Melissa",
+    "email": "melissalahlou8@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Senour Yasmine Naima",
+    "email": "yasmine.naima.senour@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Salamani Amine",
+    "email": "amine.salamani@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Lalagui Baraa Fatima Zohra",
+    "email": "baraa.lalagui@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hamaidi Mohamed Idris hamadi",
+    "email": "mohamed.hamaidi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Karina Ait Ouazzou",
+    "email": "karina.aitouazzou@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Medaouar Hadil",
+    "email": "hadil.medaouar@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Guoual belhamidi kawthar",
+    "email": "kawther.guoualbelhamidi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bassaid Firdaws",
+    "email": "firdaws.bassaid@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "HATTAB\u0130 Hadil",
+    "email": "hadil.hattabi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bouabdelli Moulay Mohamed",
+    "email": "moulay_med_bouabd_Elli@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bahloul Nadjela",
+    "email": "nadjelabhl@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Insaf delenda",
+    "email": "insaf.delenda@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Younes Barmaki",
+    "email": "younes.barmaki@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Zerkhef Abd Raouf",
+    "email": "a_zerkhef@estin.dz",
+    "mark": 0
+  },
+  {
+    "name": "Nesrine Djeddou",
+    "email": "nesrine.djeddou@g.enp.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Chahinez Khaled",
+    "email": "chahinez.khaled@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Nawel",
+    "email": "newla.bellil@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "GUERIOU MOHAMED RAOUF",
+    "email": "raoufinforetu@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Mekhloufi Chaima",
+    "email": "chaima.mekhloufi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Kassous Yousra",
+    "email": "yousra.kassous@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hani kaouthar",
+    "email": "kaouthar.hani@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "HOCINE Nihal",
+    "email": "nihal.hocine@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "YOUSFI Chaker",
+    "email": "chaker.yousfi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Morakeb Chahinez",
+    "email": "chahinez.morakeb@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Ouail kharroub dhiaa eddine",
+    "email": "mo_kharroub@esi.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hiba messahel",
+    "email": "hibet.allah.messahel@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Soumia bouaouina",
+    "email": "soumia.bouaouina@endia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Nourelhouda Boutemine",
+    "email": "n_boutemine@estin.dz",
+    "mark": 0
+  },
+  {
+    "name": "Rafida Djomana BENCHABANE",
+    "email": "djomanabenchabane@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "MANI Selma",
+    "email": "selma.mani@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Moulahcene riadh",
+    "email": "riadh.moulahcene@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Oussama Abderraouf Attia",
+    "email": "lo_attia@es.dz",
+    "mark": 0
+  },
+  {
+    "name": "Charchar imad eddine",
+    "email": "Imad-eddine.charchar@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mahfoudia Nour el houda Imene",
+    "email": "nour-el-houda.mahfoudia@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Maachou Mohamed Imad Eddine",
+    "email": "mohammed.maachou@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mohanned Kadache",
+    "email": "mohanned.kadache@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "razane lagagna",
+    "email": "razane.lagagna@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Achouri anfal",
+    "email": "anfal.achouri@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Amel FEDDAG",
+    "email": "amel.feddag@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mouchaal ahmed elamine",
+    "email": "ahmed.elamine.mouchaal@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Amel FEDDAG",
+    "email": "amel.feddag@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hamza Djamila amani",
+    "email": "djamila.hamza@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Abdelhak CHELLAL",
+    "email": "abdelhak.chellal@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "GUENDOUZ Nour El Yakine",
+    "email": "nour_el_yakine.guendouz@ensia.edu.com",
+    "mark": 0
+  },
+  {
+    "name": "Labar Lina Nadjeh",
+    "email": "lina.labar@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "douaa djaid",
+    "email": "douaa.djaid@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Kadri Mohammed Mouncef",
+    "email": "mohammed.kadri@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Meftah Zineb",
+    "email": "zineb.meftah@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Abdussamad ZETRONI",
+    "email": "abdessamed.zetroni@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Kichah Mohammed El Amine",
+    "email": "mohammed.el.amine.kichah@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Fodhil benhiba",
+    "email": "f.benhiba@esi-sba.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bassel-Abdessmad Grine",
+    "email": "bassel.grine@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Badri amouri",
+    "email": "badriamouri@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Rahmani anis",
+    "email": "anis.rahmani@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Hana Afra",
+    "email": "hana.afra@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "BOUKERFA Muhammad El Amin",
+    "email": "jm_boukerfa@esi.dz",
+    "mark": 0
+  },
+  {
+    "name": "Zohra (Student) Abdeli",
+    "email": "zohra.abdeli@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Zineb zetili",
+    "email": "zineb.zetili@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Cheboui Fatma Imene",
+    "email": "fatma.cheboui@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Mohandi Abdelaziz",
+    "email": "abdelaziz.mohandi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Nesrine bouzid",
+    "email": "nesrine.bouzid@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Moueddene Nour El Imen",
+    "email": "ni.moueddene@esi-sba.dz",
+    "mark": 0
+  },
+  {
+    "name": "Amrouche Fay\u00e7al",
+    "email": "faycal.amrouche@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "YAGOUB Douaa Manel",
+    "email": "douaa.yagoub@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bilal Fellah",
+    "email": "bilal.fellah@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Bouazzouni Nassim Ali",
+    "email": "nassim-ali.bouazzouni@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Dounia Boutaguia",
+    "email": "megalbatrosbh123@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Demmouche lina",
+    "email": "Lina.demmouche@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Sara Belhadj",
+    "email": "sarabelhadj31000@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Merabet Manel",
+    "email": "manel.merabet@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Abderrahim Rezki",
+    "email": "abderrahim.rezki@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Imene Ait Abdellah",
+    "email": "imene.aitabdellah@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Sarra arab",
+    "email": "sarra.arab@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Houssam Eddine Oubiche",
+    "email": "houssamoubiche@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Zeroual Mohammed",
+    "email": "lm_zeroual@esi.dz",
+    "mark": 0
+  },
+  {
+    "name": "Radjaa Boumaraf",
+    "email": "khouloudnesrine293@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "RAHOU Meriem",
+    "email": "lm_rahou@esi.dz",
+    "mark": 0
+  },
+  {
+    "name": "Ayoub Korichi",
+    "email": "ayoub.korichi@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Omar Farouk Zouak",
+    "email": "omar.zouak@ensia.edu.dz",
+    "mark": 0
+  },
+  {
+    "name": "Farouk Blz",
+    "email": "blzfarouk15@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "kenza amirouche",
+    "email": "kazuu2810@gmail.com",
+    "mark": 0
+  },
+  {
+    "name": "Dabouz Mohamed Amine",
+    "email": "lm_dabouz@esi.dz",
+    "mark": 0
+  },
+  {
+    "name": "Baya OUDJANA",
+    "email": "baya.oudjana@ensia.edu.dz",
+    "mark": 0
+  }
+]
