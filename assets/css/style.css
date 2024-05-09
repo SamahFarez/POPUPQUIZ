@@ -15,6 +15,11 @@ body {
 }
 
 
+html, body{
+  background-color: #CED4DA;
+}
+
+
 section {
   min-height: 1vh !important;
 }
@@ -1656,4 +1661,37 @@ div[class*="-stats"] span:hover {
   0% { transform: scaleY(0.01); }
   75% { transform: scaleY(1.1); }
   100% { transform: scaleY(1); }
+}
+
+
+
+
+.question-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.input-field {
+  width: 30%;
+  text-align: center;
+}
+
+.input-field input, .input-field select {
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0px solid white;
+}
+
+.input-group{
+  width: 100%;
+}
+
+
+section{
+  padding-bottom: 150px ;
 }

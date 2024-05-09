@@ -618,56 +618,164 @@ QR code part/ timer
 */
 
 
-function startTimer() {
+
+var interval;
+var totalSeconds;
+var remainingSeconds; // Added to store remaining time
+var initialHours;
+var initialMinutes;
+var initialSeconds;
+var timerDisplay = document.getElementById("countdown");
+var seeResultsButton = document.getElementById("see-results");
+var qrCodeContainer = document.getElementById("qr-code-container");
+var timerContainer = document.getElementById("timer-container");
+var inputGroup = document.getElementById("input-group");
+var startBtn = document.getElementById("startBtn");
+var pauseBtn = document.getElementById("pauseBtn");
+var resumeBtn = document.getElementById("resumeBtn");
+var resetBtn = document.getElementById("resetBtn");
+var buttonsContainer = document.getElementById("buttons-container");
+
+function startTimer(initialRemainingSeconds) {
+  var hours = parseInt(document.getElementById("hours").value);
   var minutes = parseInt(document.getElementById("minutes").value);
-  var seconds = minutes * 60;
-  var timerDisplay = document.getElementById("countdown");
-  var seeResultsButton = document.getElementById("see-results");
-  var qrCodeContainer = document.getElementById("qr-code-container");
-  var timerContainer = document.getElementById("timer-container");
+  var seconds = parseInt(document.getElementById("seconds").value);
+  
+  if (initialRemainingSeconds === undefined) { // If initialRemainingSeconds is not passed, calculate totalSeconds
+    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  } else { // If initialRemainingSeconds is passed, use it
+    totalSeconds = initialRemainingSeconds;
+  }
+
+  // Store total seconds in remaining seconds initially
+  remainingSeconds = totalSeconds;
 
   // Hide setting of time and start button
-  timerContainer.style.display = "none";
-
-  // Clear any existing countdown numbers
-  timerDisplay.innerHTML = '';
+  inputGroup.style.display = "none";
+  startBtn.style.display= "none";
+  buttonsContainer.style.display= "flex";
+  timerDisplay.style.display = "block";
+  timerDisplay.style.fontSize = "25px"; // Display the QR code container
+  timerDisplay.style.fontWeight = "bold"; // Display the QR code container
 
   // Start the countdown
-  var countdown = setInterval(function () {
-    var minutesLeft = Math.floor(seconds / 60);
-    var secondsLeft = seconds % 60;
+  interval = setInterval(function () {
+    var hoursLeft = Math.floor(remainingSeconds / 3600); // Use remainingSeconds here
+    var minutesLeft = Math.floor((remainingSeconds % 3600) / 60); // Use remainingSeconds here
+    var secondsLeft = remainingSeconds % 60; // Use remainingSeconds here
 
     // Update the timer display with the countdown numbers
-    timerDisplay.innerHTML = `<span class="countdown-number">${minutesLeft.toString().padStart(2, '0')}</span>:<span class="countdown-number">${secondsLeft.toString().padStart(2, '0')}</span>`;
-    seeResultsButton.style.textAlign = "center";
+    timerDisplay.textContent = `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
 
-    if (seconds <= 0) {
-      clearInterval(countdown);
+    if (remainingSeconds <= 0) { // Use remainingSeconds here
+      clearInterval(interval);
       timerDisplay.textContent = "Time's up!";
+      buttonsContainer.style.display = "none";
       seeResultsButton.style.display = "block";
-
     } else {
-      seconds--;
+      remainingSeconds--; // Decrease remainingSeconds instead of totalSeconds
       qrCodeContainer.style.display = "block"; // Display the QR code container
+      generateQRCode('https://www.google.com'); // Generate QR code
     }
   }, 1000);
 }
 
-function incrementMinutes() {
-  var minutesInput = document.getElementById("minutes");
-  var currentMinutes = parseInt(minutesInput.value);
-  minutesInput.value = currentMinutes + 1;
+
+function restartTimer() {
+  clearInterval(interval);
+  inputGroup.style.display = "flex"; // Display setting of time
+  startBtn.style.display = "inline-block"; // Display start button
+  buttonsContainer.style.display = "none";
+  timerDisplay.style.display = "none";
+  qrCodeContainer.style.display = "none";
 }
 
-function decrementMinutes() {
-  var minutesInput = document.getElementById("minutes");
-  var currentMinutes = parseInt(minutesInput.value);
-  if (currentMinutes > 1) {
-    minutesInput.value = currentMinutes - 1;
+function pauseTimer() {
+  clearInterval(interval);
+  pauseBtn.style.display = "none";
+  resumeBtn.style.display = "inline-block";
+}
+
+function resumeTimer() {
+  // Restart the timer with remaining time
+  startTimer(remainingSeconds); // Pass remainingSeconds as an argument
+  pauseBtn.style.display = "inline-block";
+  resumeBtn.style.display = "none";
+}
+
+function resetTimer() {
+  clearInterval(interval);
+  startTimer(totalSeconds); // Pass remainingSeconds as an argument
+
+}
+
+
+function changeValue(id, direction) {
+  var input = document.getElementById(id);
+  var value = parseInt(input.value);
+  if (direction === 'up') {
+      input.value = (value + 1) % 60;
+  } else if (direction === 'down') {
+      input.value = (value - 1 + 60) % 60;
   }
 }
 
-document.getElementById("see-results").addEventListener("click", function () {
-  // Scroll to the "results" section
-  document.getElementById("results").scrollIntoView({ behavior: "smooth" });
-});
+
+function generateQRCode(qrCodeLink) {
+  var qrCodeImg = document.getElementById("qrCodeImg");
+  qrCodeImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrCodeLink);
+}
+
+
+
+var hero = document.getElementById("hero-section");
+var about = document.getElementById("about");
+var quizsection = document.getElementById("quiz_section");
+var timer = document.getElementById("timer");
+var statistics = document.getElementById("statistics");
+
+
+
+function HeroDisplay(){
+  hero.style.display = "block"; // Display start button
+  about.style.display = "none"; // Display start button
+  quizsection.style.display = "none"; // Display start button
+  timer.style.display = "none"; // Display start button
+  statistics.style.display = "none"; // Display start button
+}
+
+
+function PdfDisplay(){
+  hero.style.display = "none"; // Display start button
+  about.style.display = "block"; // Display start button
+  quizsection.style.display = "none"; // Display start button
+  timer.style.display = "none"; // Display start button
+  statistics.style.display = "none"; // Display start button
+}
+
+
+function quizDisplay(){
+  hero.style.display = "none"; // Display start button
+  about.style.display = "none"; // Display start button
+  quizsection.style.display = "block"; // Display start button
+  timer.style.display = "none"; // Display start button
+  statistics.style.display = "none"; // Display start button
+}
+
+
+function timeDisplay(){
+  hero.style.display = "none"; // Display start button
+  about.style.display = "none"; // Display start button
+  quizsection.style.display = "none"; // Display start button
+  timer.style.display = "block"; // Display start button
+  statistics.style.display = "none"; // Display start button
+}
+
+
+function statsDisplay(){
+  hero.style.display = "none"; // Display start button
+  about.style.display = "none"; // Display start button
+  quizsection.style.display = "none"; // Display start button
+  timer.style.display = "none"; // Display start button
+  statistics.style.display = "block"; // Display start button
+}
