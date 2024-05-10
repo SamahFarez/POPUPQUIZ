@@ -59,73 +59,96 @@
 
     <nav id="navbar" class="navbar nav-menu">
       <ul>
-        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
-        <li><a href="#quiz_section" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
-        <li><a href="#timer" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
-        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <li onclick="HeroDisplay()"><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li  onclick="PdfDisplay()"><a href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
+        <li onclick="quizDisplay()"><a href="#quiz_section" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
+        <li onclick="timeDisplay()"><a href="#timer" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
+        <li onclick="statsDisplay()"><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center">
-    <div class="container" data-aos="zoom-in" data-aos-delay="100">
-      <h1>Generate your Quiz ! </h1>
-      <div style="margin-bottom: 40px;"></div> <!-- Adding space -->
-      <button type="button" class="btn btn-primary" id="start-generation"
-        style="background-color: #274C77; border-color: #274C77;">Start Generating</button>
-      <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+
+  <section id="hero-section">
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex flex-column justify-content-center" style="display: none;">
+      <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <h1>Generate your Quiz ! </h1>
+        <div style="margin-bottom: 40px;"></div> <!-- Adding space -->
+        <button type="button" class="btn btn-primary" id="start-generation"
+          style="background-color: #274C77; border-color: #274C77;" onclick="PdfDisplay()">Start Generating</button>
+        <div class="social-links">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
       </div>
-    </div>
+    </section>
   </section>
   <!-- End Hero -->
 
   <main id="main">
 
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Upload Your PDF</h2>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="card p-5" style="height: 450px; width: 850px;">
-              <div class="card-content d-flex flex-column justify-content-between h-100">
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                  <div class="mb-4 text-center">
-                    <label for="pdf-file" class="form-label"
-                      style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
-                    <div class="input-group">
-                      <input class="form-control" type="file" id="pdf-file" accept=".pdf">
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about" style="display: none;">
+        <div class="container" data-aos="fade-up">
+  
+          <div class="section-title">
+            <h2>Upload Your PDF</h2>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="card p-5" style="height: 450px; width: 850px;">
+                <div class="card-content d-flex flex-column justify-content-between h-100">
+                  <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="mb-4 text-center" style="width:90%;">
+                      <label for="pdf-file" class="form-label"
+                        style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
+                      <div class="input-group">
+                        <input class="form-control" type="file" id="pdf-file" accept=".pdf">
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary" id="start-generation2"
-                    style="background-color: #274C77; border-color: #274C77;">Generate</button>
+  
+                  <div class="row justify-content-center questions-details">
+                    <div style="width: 30%;" class="input-field">
+                      <p>Number of Questions</p><input type="text" value="10" required>
+                    </div>
+                    <div style="width: 30%;" class="input-field">
+                      <p>Type of Questions</p>
+                      <select required>
+                        <option selected>Select an option</option>
+                        <option>Multiple Choice</option>
+                        <option>Single Choice</option>
+                        <option>Mixed</option>
+                      </select>
+                    </div>
+                    <div style="width: 30%;" class="input-field">
+                      <p>Number of Options</p><input type="number" value="3" min="2" max="5" required>
+                    </div>
+  
+                  </div>
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary" id="start-generation2"
+                      style="background-color: #274C77; border-color: #274C77;margin-top: 50px;"
+                      onclick="quizDisplay()">Generate</button>
+                  </div>
                 </div>
               </div>
+  
             </div>
-
-
-
+  
           </div>
+  
         </div>
-
-      </div>
-    </section>
+      </section>
 
     <!-- ======= Resume Section ======= -->
-    <section id="quiz_section" class="resume">
+    <section id="quiz_section" class="resume" style="display: none;">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -164,50 +187,99 @@
               <button type="button" class="btn btn-primary mt-3">Add The Question</button>
             </div>
           </div>
-          <button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 98%;">Validate
-            Quiz</button>
+          <button type="button" class="btn btn-success mt-3" id="validate-quiz-button" style="width: 98%;"
+            onclick="timeDisplay()">Validate Quiz</button>
         </div>
-      </div>
-
       </div>
     </section>
 
 
-    <section id="timer" class="text-center">
+ 
+    <section id="timer" class="text-center" style="padding-bottom: 350px;display: none;">
       <div class="section-title" style="margin-top: 65px;">
         <h2>Qr code</h2>
       </div>
 
-      <div id="timer-container" style="margin-top: 80px;" style="width: 50%; margin: auto;">
-        <h3>Set Minutes:</h3>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" type="button" onclick="decrementMinutes()">-</button>
+      <div id="timer-container" style="margin-top: 30px; width: 50%;margin: auto;">
+        <div id="input-group" class="input-group mb-3"
+          style="margin: 100px auto;align-items: center;justify-content: space-between;text-align: center;">
+          <!-- Hours input -->
+          <div style="text-align:center;">
+            <span>Hours</span>
+            <br>
+            <div style="display: flex; flex-direction: column;">
+              <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('hours', 'up')">↑</button>
+              <input style="font-weight: bold;text-align: center;" type="text" id="hours" class="form-control" min="0"
+                value="0" style="text-align: center;">
+              <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('hours', 'down')">↓</button>
+            </div>
           </div>
-          <input type="number" id="minutes" class="form-control" min="1" value="1">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" onclick="incrementMinutes()">+</button>
+
+          <!-- Minutes input -->
+          <div style="text-align:center;">
+            <span>Minutes</span>
+            <br>
+            <div style="display: flex; flex-direction: column;">
+              <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('minutes', 'up')">↑</button>
+              <input style="font-weight: bold;text-align: center;" type="text" id="minutes" class="form-control" min="0"
+                value="0" style="text-align: center;">
+              <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('minutes', 'down')">↓</button>
+            </div>
+          </div>
+
+          <!-- Seconds input -->
+          <div style="text-align:center;">
+            <span>Seconds</span>
+            <br>
+            <div style="display: flex; flex-direction: column;">
+              <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('seconds', 'up')">↑</button>
+              <input style="font-weight: bold;text-align: center;" type="text" id="seconds" class="form-control" min="0"
+                value="0" style="text-align: center;">
+              <button style="background-color: #9fafc2; color: white;" type="button" class="btn btn-link btn-sm"
+                onclick="changeValue('seconds', 'down')">↓</button>
+            </div>
           </div>
         </div>
-        <button type="button" class="btn btn-success"
-          style="margin-top:50px; margin-bottom: 150px; background-color: #274C77 !important;"
-          onclick="startTimer()">Start Quiz</button>
-      </div>
-      <div id="countdown" class="mt-3"></div>
-      <!-- Display static QR code image -->
-      <div id="qr-code-container" class="mt-3" style="display: none;">
-        <img src="./assets/img/qr-code/qr.png" alt="QR code" class="img-fluid">
-      </div>
-      <button id="see-results" class="btn btn-primary mt-3"
-        style="display: none;background-color: #274C77;margin-bottom: 100px;border-color: #274C77;">See Results</button>
-    </section>
 
+        <div id="countdown" class="mt-3"></div>
+        <!-- Display QR code after starting the timer -->
+        <div id="qr-code-container" class="mt-3" style="display: none;">
+          <img id="qrCodeImg" src="" alt="QR code" class="img-fluid">
+        </div>
+
+        <!-- Start, Pause, Resume, Reset buttons -->
+        <button type="button" class="btn btn-success" id="startBtn"
+          style="margin-top:10px; background-color: #274C77 !important;" onclick="startTimer()">Start Quiz</button>
+        <div id="buttons-container"
+          style="margin:auto; width: 35%;justify-content: space-between;flex-direction: row;height: 50px; display: none; gap: 5px;">
+          <button type="button" class="btn btn-primary" id="pauseBtn"
+            style="margin-top:10px; background-color: #274C77 !important;" onclick="pauseTimer()">Pause</button>
+          <button type="button" class="btn btn-primary" id="resumeBtn"
+            style="display:none;margin-top:10px; background-color: #274C77 !important;"
+            onclick="resumeTimer()">Resume</button>
+          <button type="button" class="btn btn-danger" id="resetBtn" style="margin-top:10px;"
+            onclick="resetTimer()">Reset</button>
+          <button type="button" class="btn btn-warning" id="restartBtn" style="margin-top:10px;"
+            onclick="restartTimer()">Restart</button>
+        </div>
+      </div>
+
+      <button id="see-results" class="btn btn-primary mt-3"
+        style="display: none;margin-bottom:100px; margin-bottom: 50px;background-color: #274C77;border-color: #274C77;margin: auto;"
+        onclick="statsDisplay()">See
+        Results</button>
+    </section>
 
 
       
      
 <!-- Display The Statistics -->
-<section id="statistics" class="text-center">
+<section id="statistics" class="text-center" style="display: none;">
   <div class="container">
     <div class="section-title">
       <h2>Quiz Results & Attendance</h2>
@@ -317,7 +389,7 @@
 
 
   <!-- ======= Footer ======= -->
-  <footer id="footer">
+  <footer id="footer" style="display: none;">
     <div class="container">
       <h3>GenerateQuiz</h3>
       <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
