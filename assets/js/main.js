@@ -636,6 +636,7 @@ var resumeBtn = document.getElementById("resumeBtn");
 var resetBtn = document.getElementById("resetBtn");
 var buttonsContainer = document.getElementById("buttons-container");
 
+
 function startTimer(initialRemainingSeconds) {
   var hours = parseInt(document.getElementById("hours").value);
   var minutes = parseInt(document.getElementById("minutes").value);
@@ -728,12 +729,20 @@ function generateQRCode(qrCodeLink) {
 
 
 
+
+
 var hero = document.getElementById("hero-section");
 var about = document.getElementById("about");
 var quizsection = document.getElementById("quiz_section");
 var timer = document.getElementById("timer");
 var statistics = document.getElementById("statistics");
 
+
+var heroSelect = document.getElementById("hero-select");
+var pdfSelect = document.getElementById("pdf-select");
+var quizSelect = document.getElementById("quiz-select");
+var timeSelect = document.getElementById("time-select");
+var statsSelect = document.getElementById("stats-select");
 
 
 function HeroDisplay(){
@@ -742,8 +751,21 @@ function HeroDisplay(){
   quizsection.style.display = "none"; // Display start button
   timer.style.display = "none"; // Display start button
   statistics.style.display = "none"; // Display start button
-}
 
+  // Set selected element styles
+  heroSelect.style.backgroundColor = "#274C77";
+  heroSelect.style.color = "#f2f3f5";
+
+  // Reset other elements styles
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+}
 
 function PdfDisplay(){
   hero.style.display = "none"; // Display start button
@@ -751,8 +773,21 @@ function PdfDisplay(){
   quizsection.style.display = "none"; // Display start button
   timer.style.display = "none"; // Display start button
   statistics.style.display = "none"; // Display start button
-}
 
+  // Set selected element styles
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+
+  // Reset other elements styles
+  pdfSelect.style.backgroundColor = "#274C77";
+  pdfSelect.style.color = "#f2f3f5";
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+}
 
 function quizDisplay(){
   hero.style.display = "none"; // Display start button
@@ -760,8 +795,21 @@ function quizDisplay(){
   quizsection.style.display = "block"; // Display start button
   timer.style.display = "none"; // Display start button
   statistics.style.display = "none"; // Display start button
-}
 
+  // Set selected element styles
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+
+  // Reset other elements styles
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  quizSelect.style.backgroundColor = "#274C77";
+  quizSelect.style.color = "#f2f3f5";
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+}
 
 function timeDisplay(){
   hero.style.display = "none"; // Display start button
@@ -769,8 +817,21 @@ function timeDisplay(){
   quizsection.style.display = "none"; // Display start button
   timer.style.display = "block"; // Display start button
   statistics.style.display = "none"; // Display start button
-}
 
+  // Set selected element styles
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+
+  // Reset other elements styles
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  timeSelect.style.backgroundColor = "#274C77";
+  timeSelect.style.color = "#f2f3f5";
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+}
 
 function statsDisplay(){
   hero.style.display = "none"; // Display start button
@@ -778,4 +839,18 @@ function statsDisplay(){
   quizsection.style.display = "none"; // Display start button
   timer.style.display = "none"; // Display start button
   statistics.style.display = "block"; // Display start button
+
+  // Set selected element styles
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+
+  // Reset other elements styles
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  statsSelect.style.backgroundColor = "#274C77";
+  statsSelect.style.color = "#f2f3f5";
 }
