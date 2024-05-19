@@ -1,0 +1,19 @@
+{
+  "name": "popupQuiz",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "qrCode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "googleapis": "^135.1.0",
+    "open": "^10.1.0"
+  }
+}

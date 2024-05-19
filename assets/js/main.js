@@ -305,30 +305,133 @@ document.addEventListener('DOMContentLoaded', function () {
   new PureCounter();
 
 })()
+/*
+Model part
+*/
+
+var quizData
+
+
+async function callPythonFunction() {
+  try {
+      document.getElementById('loading-message').style.display = 'block';
+      response = await fetch("http://localhost:8000/my_python_function");
+      if (!response.ok) {
+          throw new Error('Request failed with status ' + response.status);
+      }
+      // responseData = await response.text();
+      // console.log(responseData);
+      quizData = await response.json();
+      console.log("quizData: ",quizData)
+      generateQuizHTML()
+      handleAddQuestionButton()
+      attachCheckboxListeners(); // Attach checkbox event listeners
+      handleIconClicks();
+      quizDisplay()
+      
+  } catch (error) {
+      console.error("Request failed:", error.message);
+      alert("Request failed: " + error.message);
+  } finally {
+      document.getElementById('loading-message').style.display = 'none';
+  }
+}
+
+
 
 /* 
 Quiz Part
 */
 
 // Sample data structure containing quiz questions
-var quizData = [
-  {
-    question: "What is the capital of France?",
-    options: [
-      { text: "Paris", isCorrect: true },
-      { text: "Madrid", isCorrect: false },
-      { text: "Berlin", isCorrect: false }
-    ]
-  },
-  {
-    question: "What is the capital of Spain?",
-    options: [
-      { text: "Paris", isCorrect: false },
-      { text: "Madrid", isCorrect: true },
-      { text: "Berlin", isCorrect: false }
-    ]
-  },
-];
+// var quizData = [
+//   {
+//     question: "What is the capital of France?",
+//     options: [
+//       { text: "Paris", isCorrect: true },
+//       { text: "Madrid", isCorrect: false },
+//       { text: "Berlin", isCorrect: false }
+//     ]
+//   },
+//   {
+//     question: "What is the capital of Spain?",
+//     options: [
+//       { text: "Paris", isCorrect: false },
+//       { text: "Madrid", isCorrect: true },
+//       { text: "Berlin", isCorrect: false }
+//     ]
+//   },
+// ];
+
+
+//to use it for url qr code
+
+var code_url ="";
+
+//function to convert this array to json and create the form and generate qr code
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("validate-quiz-button").addEventListener("click", async () => {
+    const img = document.getElementById('qr-code-image');
+    const container = document.getElementById('qr-code-container');
+    console.log("Button clicked!"); 
+    const update = {
+      requests: []
+    };
+  // conversion to json 
+    quizData.forEach((questionItem, index) => {
+      const createItemRequest = {
+        createItem: {
+          item: {
+            title: `Question ${index + 1}`,
+            description: questionItem.question,
+            questionItem: {
+              question: {
+                required: true,
+                choiceQuestion: {
+                  type: "RADIO",
+                  options: questionItem.options.map(option => ({ value: option.text }))
+                }
+              }
+            }
+          },
+          location: {
+            index: index
+          }
+        }
+      };
+
+      update.requests.push(createItemRequest);
+    });
+    //form creation
+      try {
+        const response = await fetch('http://localhost:3000/api/create-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ update })
+      });
+      //get URL of the form if the response is valid
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Form created:', responseData);
+        const formUrl = responseData.formUrl;
+        // Generate QR code based on the form URL
+         code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
+         img.src = code_url;
+         container.classList.add('active');
+      } else {
+        console.error('Failed to create form');
+      }
+    } catch (error) {
+      console.error('Error creating form:', error);
+    }
+  });
+});
+
+
+
 // Function to generate quiz HTML from data
 function generateQuizHTML() {
   var quizDisplaySection = document.getElementById("quizDisplaySection");
@@ -368,10 +471,7 @@ function generateQuizHTML() {
 
 // Call the function to generate quiz HTML on page load
 window.onload = function () {
-  generateQuizHTML();
-  handleAddQuestionButton()
-  attachCheckboxListeners(); // Attach checkbox event listeners
-  handleIconClicks();
+
 };
 
 // Function to attach event listeners to checkboxes
@@ -738,11 +838,11 @@ var timer = document.getElementById("timer");
 var statistics = document.getElementById("statistics");
 
 
-var heroSelect = document.getElementById("hero-select");
-var pdfSelect = document.getElementById("pdf-select");
-var quizSelect = document.getElementById("quiz-select");
-var timeSelect = document.getElementById("time-select");
-var statsSelect = document.getElementById("stats-select");
+// var heroSelect = document.getElementById("hero-select");
+// var pdfSelect = document.getElementById("pdf-select");
+// var quizSelect = document.getElementById("quiz-select");
+// var timeSelect = document.getElementById("time-select");
+// var statsSelect = document.getElementById("stats-select");
 
 
 function HeroDisplay(){
@@ -753,18 +853,18 @@ function HeroDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  heroSelect.style.backgroundColor = "#274C77";
-  heroSelect.style.color = "#f2f3f5";
+  // heroSelect.style.backgroundColor = "#274C77";
+  // heroSelect.style.color = "#f2f3f5";
 
   // Reset other elements styles
-  pdfSelect.style.backgroundColor = "#f2f3f5";
-  pdfSelect.style.color = "#274C77";
-  quizSelect.style.backgroundColor = "#f2f3f5";
-  quizSelect.style.color = "#274C77";
-  timeSelect.style.backgroundColor = "#f2f3f5";
-  timeSelect.style.color = "#274C77";
-  statsSelect.style.backgroundColor = "#f2f3f5";
-  statsSelect.style.color = "#274C77";
+  // pdfSelect.style.backgroundColor = "#f2f3f5";
+  // pdfSelect.style.color = "#274C77";
+  // quizSelect.style.backgroundColor = "#f2f3f5";
+  // quizSelect.style.color = "#274C77";
+  // timeSelect.style.backgroundColor = "#f2f3f5";
+  // timeSelect.style.color = "#274C77";
+  // statsSelect.style.backgroundColor = "#f2f3f5";
+  // statsSelect.style.color = "#274C77";
 }
 
 function PdfDisplay(){
@@ -775,18 +875,18 @@ function PdfDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  heroSelect.style.backgroundColor = "#f2f3f5";
-  heroSelect.style.color = "#274C77";
+  // heroSelect.style.backgroundColor = "#f2f3f5";
+  // heroSelect.style.color = "#274C77";
 
   // Reset other elements styles
-  pdfSelect.style.backgroundColor = "#274C77";
-  pdfSelect.style.color = "#f2f3f5";
-  quizSelect.style.backgroundColor = "#f2f3f5";
-  quizSelect.style.color = "#274C77";
-  timeSelect.style.backgroundColor = "#f2f3f5";
-  timeSelect.style.color = "#274C77";
-  statsSelect.style.backgroundColor = "#f2f3f5";
-  statsSelect.style.color = "#274C77";
+  // pdfSelect.style.backgroundColor = "#274C77";
+  // pdfSelect.style.color = "#f2f3f5";
+  // quizSelect.style.backgroundColor = "#f2f3f5";
+  // quizSelect.style.color = "#274C77";
+  // timeSelect.style.backgroundColor = "#f2f3f5";
+  // timeSelect.style.color = "#274C77";
+  // statsSelect.style.backgroundColor = "#f2f3f5";
+  // statsSelect.style.color = "#274C77";
 }
 
 function quizDisplay(){
@@ -797,18 +897,18 @@ function quizDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  heroSelect.style.backgroundColor = "#f2f3f5";
-  heroSelect.style.color = "#274C77";
+  // heroSelect.style.backgroundColor = "#f2f3f5";
+  // heroSelect.style.color = "#274C77";
 
   // Reset other elements styles
-  pdfSelect.style.backgroundColor = "#f2f3f5";
-  pdfSelect.style.color = "#274C77";
-  quizSelect.style.backgroundColor = "#274C77";
-  quizSelect.style.color = "#f2f3f5";
-  timeSelect.style.backgroundColor = "#f2f3f5";
-  timeSelect.style.color = "#274C77";
-  statsSelect.style.backgroundColor = "#f2f3f5";
-  statsSelect.style.color = "#274C77";
+  // pdfSelect.style.backgroundColor = "#f2f3f5";
+  // pdfSelect.style.color = "#274C77";
+  // quizSelect.style.backgroundColor = "#274C77";
+  // quizSelect.style.color = "#f2f3f5";
+  // timeSelect.style.backgroundColor = "#f2f3f5";
+  // timeSelect.style.color = "#274C77";
+  // statsSelect.style.backgroundColor = "#f2f3f5";
+  // statsSelect.style.color = "#274C77";
 }
 
 function timeDisplay(){
@@ -819,18 +919,18 @@ function timeDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  heroSelect.style.backgroundColor = "#f2f3f5";
-  heroSelect.style.color = "#274C77";
+  // heroSelect.style.backgroundColor = "#f2f3f5";
+  // heroSelect.style.color = "#274C77";
 
   // Reset other elements styles
-  pdfSelect.style.backgroundColor = "#f2f3f5";
-  pdfSelect.style.color = "#274C77";
-  quizSelect.style.backgroundColor = "#f2f3f5";
-  quizSelect.style.color = "#274C77";
-  timeSelect.style.backgroundColor = "#274C77";
-  timeSelect.style.color = "#f2f3f5";
-  statsSelect.style.backgroundColor = "#f2f3f5";
-  statsSelect.style.color = "#274C77";
+  // pdfSelect.style.backgroundColor = "#f2f3f5";
+  // pdfSelect.style.color = "#274C77";
+  // quizSelect.style.backgroundColor = "#f2f3f5";
+  // quizSelect.style.color = "#274C77";
+  // timeSelect.style.backgroundColor = "#274C77";
+  // timeSelect.style.color = "#f2f3f5";
+  // statsSelect.style.backgroundColor = "#f2f3f5";
+  // statsSelect.style.color = "#274C77";
 }
 
 function statsDisplay(){
@@ -841,16 +941,16 @@ function statsDisplay(){
   statistics.style.display = "block"; // Display start button
 
   // Set selected element styles
-  heroSelect.style.backgroundColor = "#f2f3f5";
-  heroSelect.style.color = "#274C77";
+  // heroSelect.style.backgroundColor = "#f2f3f5";
+  // heroSelect.style.color = "#274C77";
 
   // Reset other elements styles
-  pdfSelect.style.backgroundColor = "#f2f3f5";
-  pdfSelect.style.color = "#274C77";
-  quizSelect.style.backgroundColor = "#f2f3f5";
-  quizSelect.style.color = "#274C77";
-  timeSelect.style.backgroundColor = "#f2f3f5";
-  timeSelect.style.color = "#274C77";
-  statsSelect.style.backgroundColor = "#274C77";
-  statsSelect.style.color = "#f2f3f5";
+  // pdfSelect.style.backgroundColor = "#f2f3f5";
+  // pdfSelect.style.color = "#274C77";
+  // quizSelect.style.backgroundColor = "#f2f3f5";
+  // quizSelect.style.color = "#274C77";
+  // timeSelect.style.backgroundColor = "#f2f3f5";
+  // timeSelect.style.color = "#274C77";
+  // statsSelect.style.backgroundColor = "#274C77";
+  // statsSelect.style.color = "#f2f3f5";
 }
