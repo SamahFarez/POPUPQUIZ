@@ -308,32 +308,66 @@ document.addEventListener('DOMContentLoaded', function () {
 /*
 Model part
 */
+function findQuestions(data) {
+  let result = null;
+
+  // Check if the current data is an object
+  if (typeof data === 'object' && data !== null) {
+    // If "questions" key is found, return its value
+    if ('questions' in data) {
+      return data['questions'];
+    } else {
+      // Recursively search through the object
+      Object.keys(data).some(key => {
+        result = findQuestions(data[key]);
+        return result !== null; // Stop iteration if "questions" found
+      });
+    }
+  }
+
+  return result;
+}
+
 
 var quizData
 
 
 async function callPythonFunction() {
+
   try {
-      document.getElementById('loading-message').style.display = 'block';
-      response = await fetch("http://localhost:8000/my_python_function");
-      if (!response.ok) {
-          throw new Error('Request failed with status ' + response.status);
-      }
-      // responseData = await response.text();
-      // console.log(responseData);
-      quizData = await response.json();
-      console.log("quizData: ",quizData)
-      generateQuizHTML()
-      handleAddQuestionButton()
-      attachCheckboxListeners(); // Attach checkbox event listeners
-      handleIconClicks();
-      quizDisplay()
-      
+
+    document.getElementById('loading-message').style.display = 'block';
+    console.log("button clicked");
+    var formData = new FormData();
+    formData.append('document', document.getElementById('pdf-file').files[0]);
+
+    const response = await fetch('http://localhost:8001/generate_quiz', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data.quiz_data);
+    // quizData =  await data.quiz_data[0];
+    // console.log(quizData); // Output: What was the purpose of transforming categorical features into numerical values?
+
+    quizData = await findQuestions(data.quiz_data);
+    console.log(quizData);
+
+    generateQuizHTML();
+    handleAddQuestionButton();
+    attachCheckboxListeners(); // Attach checkbox event listeners
+    handleIconClicks();
+    quizDisplay();
   } catch (error) {
-      console.error("Request failed:", error.message);
-      alert("Request failed: " + error.message);
+    console.error("Request failed:", error.message);
+    alert("Request failed: " + error.message);
   } finally {
-      document.getElementById('loading-message').style.display = 'none';
+    document.getElementById('loading-message').style.display = 'none';
   }
 }
 
@@ -366,7 +400,9 @@ Quiz Part
 
 //to use it for url qr code
 
-var code_url ="";
+var code_url = "";
+var formId;
+
 
 //function to convert this array to json and create the form and generate qr code
 
@@ -374,12 +410,16 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("validate-quiz-button").addEventListener("click", async () => {
     const img = document.getElementById('qr-code-image');
     const container = document.getElementById('qr-code-container');
-    console.log("Button clicked!"); 
+    console.log("Button clicked!");
     const update = {
       requests: []
     };
-  // conversion to json 
+
+    // conversion to json 
     quizData.forEach((questionItem, index) => {
+      const correctOption = questionItem.options.find(option => option.isCorrect === true);
+      console.log("****************************************************")
+      console.log(correctOption.text);
       const createItemRequest = {
         createItem: {
           item: {
@@ -388,10 +428,20 @@ document.addEventListener("DOMContentLoaded", function () {
             questionItem: {
               question: {
                 required: true,
+                grading: {
+                  pointValue: 1,
+                  correctAnswers: {
+                    answers: [
+                      {
+                        value: correctOption.text
+                      }
+                    ]
+                  }
+                },
                 choiceQuestion: {
                   type: "RADIO",
                   options: questionItem.options.map(option => ({ value: option.text }))
-                }
+                },
               }
             }
           },
@@ -400,12 +450,13 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       };
-
+      console.log("-----------------------------------------------")
+      console.log(createItemRequest)
       update.requests.push(createItemRequest);
     });
     //form creation
-      try {
-        const response = await fetch('http://localhost:3000/api/create-form', {
+    try {
+      const response = await fetch('http://localhost:3000/api/create-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -417,10 +468,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const responseData = await response.json();
         console.log('Form created:', responseData);
         const formUrl = responseData.formUrl;
+        formId = responseData.formId;
+        console.log('Assigned formId:', formId);
         // Generate QR code based on the form URL
-         code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
-         img.src = code_url;
-         container.classList.add('active');
+        code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
+        img.src = code_url;
+        container.classList.add('active');
       } else {
         console.error('Failed to create form');
       }
@@ -435,7 +488,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to generate quiz HTML from data
 function generateQuizHTML() {
   var quizDisplaySection = document.getElementById("quizDisplaySection");
+  quizDisplaySection.innerHTML = "";
+  console.log("start the generation....")
 
+  console.log(quizData)
   // Loop through each question in the quiz data
   quizData.forEach(function (questionData, index) {
     var questionNumber = index + 1;
@@ -701,9 +757,9 @@ function displayRemark(message, color = 'blue') {
   remarkElement.textContent = message;
   remarkElement.style.color = color;
 
-  setTimeout(function() {
+  setTimeout(function () {
     remarkElement.textContent = '';
-  }, 5000); 
+  }, 5000);
 }
 
 
@@ -737,50 +793,129 @@ var resetBtn = document.getElementById("resetBtn");
 var buttonsContainer = document.getElementById("buttons-container");
 
 
+// function startTimer(initialRemainingSeconds) {
+//   var hours = parseInt(document.getElementById("hours").value);
+//   var minutes = parseInt(document.getElementById("minutes").value);
+//   var seconds = parseInt(document.getElementById("seconds").value);
+
+//   if (initialRemainingSeconds === undefined) { // If initialRemainingSeconds is not passed, calculate totalSeconds
+//     totalSeconds = hours * 3600 + minutes * 60 + seconds;
+//   } else { // If initialRemainingSeconds is passed, use it
+//     totalSeconds = initialRemainingSeconds;
+//   }
+
+//   // Store total seconds in remaining seconds initially
+//   remainingSeconds = totalSeconds;
+
+//   // Hide setting of time and start button
+//   inputGroup.style.display = "none";
+//   startBtn.style.display= "none";
+//   buttonsContainer.style.display= "flex";
+//   timerDisplay.style.display = "block";
+//   timerDisplay.style.fontSize = "25px"; // Display the QR code container
+//   timerDisplay.style.fontWeight = "bold"; // Display the QR code container
+
+//   // Start the countdown
+//   interval = setInterval(function () {
+//     var hoursLeft = Math.floor(remainingSeconds / 3600); // Use remainingSeconds here
+//     var minutesLeft = Math.floor((remainingSeconds % 3600) / 60); // Use remainingSeconds here
+//     var secondsLeft = remainingSeconds % 60; // Use remainingSeconds here
+
+//     // Update the timer display with the countdown numbers
+//     timerDisplay.textContent = `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
+
+//     if (remainingSeconds <= 0) { // Use remainingSeconds here
+//       clearInterval(interval);
+//       timerDisplay.textContent = "Time's up!";
+//       buttonsContainer.style.display = "none";
+//       seeResultsButton.style.display = "block";
+//     } else {
+//       remainingSeconds--; // Decrease remainingSeconds instead of totalSeconds
+//       qrCodeContainer.style.display = "block"; // Display the QR code container
+//       generateQRCode('https://www.google.com'); // Generate QR code
+//     }
+//   }, 1000);
+// }
+
 function startTimer(initialRemainingSeconds) {
   var hours = parseInt(document.getElementById("hours").value);
   var minutes = parseInt(document.getElementById("minutes").value);
   var seconds = parseInt(document.getElementById("seconds").value);
-  
-  if (initialRemainingSeconds === undefined) { // If initialRemainingSeconds is not passed, calculate totalSeconds
+
+  if (initialRemainingSeconds === undefined) {
     totalSeconds = hours * 3600 + minutes * 60 + seconds;
-  } else { // If initialRemainingSeconds is passed, use it
+  } else {
     totalSeconds = initialRemainingSeconds;
   }
 
-  // Store total seconds in remaining seconds initially
   remainingSeconds = totalSeconds;
 
-  // Hide setting of time and start button
   inputGroup.style.display = "none";
-  startBtn.style.display= "none";
-  buttonsContainer.style.display= "flex";
+  startBtn.style.display = "none";
+  buttonsContainer.style.display = "flex";
   timerDisplay.style.display = "block";
-  timerDisplay.style.fontSize = "25px"; // Display the QR code container
-  timerDisplay.style.fontWeight = "bold"; // Display the QR code container
+  timerDisplay.style.fontSize = "25px";
+  timerDisplay.style.fontWeight = "bold";
 
-  // Start the countdown
   interval = setInterval(function () {
-    var hoursLeft = Math.floor(remainingSeconds / 3600); // Use remainingSeconds here
-    var minutesLeft = Math.floor((remainingSeconds % 3600) / 60); // Use remainingSeconds here
-    var secondsLeft = remainingSeconds % 60; // Use remainingSeconds here
+    var hoursLeft = Math.floor(remainingSeconds / 3600);
+    var minutesLeft = Math.floor((remainingSeconds % 3600) / 60);
+    var secondsLeft = remainingSeconds % 60;
 
-    // Update the timer display with the countdown numbers
     timerDisplay.textContent = `${hoursLeft.toString().padStart(2, '0')}:${minutesLeft.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
 
-    if (remainingSeconds <= 0) { // Use remainingSeconds here
+    if (remainingSeconds <= 0) {
       clearInterval(interval);
       timerDisplay.textContent = "Time's up!";
       buttonsContainer.style.display = "none";
       seeResultsButton.style.display = "block";
+
+      // Trigger form closure
+      closeForm(formId);
     } else {
-      remainingSeconds--; // Decrease remainingSeconds instead of totalSeconds
-      qrCodeContainer.style.display = "block"; // Display the QR code container
-      generateQRCode('https://www.google.com'); // Generate QR code
+      remainingSeconds--;
+      qrCodeContainer.style.display = "block";
+      generateQRCode('https://www.google.com');
     }
   }, 1000);
 }
 
+
+function closeForm(formId) {
+  // Ensure formId is passed correctly
+  if (!formId) {
+    alert("Form ID is required to close the form.");
+    return;
+  }
+
+  fetch('http://localhost:3000/api/close-form', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ formId })
+  })
+    .then(response => {
+      if (response.ok) {
+        console.log('Form closed successfully');
+      } else {
+        console.error('Failed to close form');
+        response.text().then(text => {
+          console.error('Response:', text);
+          alert("Failed to close form: " + text + formId);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error closing form:', error);
+      alert('Error closing the form.');
+    });
+
+  // var form = FormApp.getActiveForm();
+  // form.setAcceptingResponses(false);
+  // deleteTriggers_();
+
+}
 
 function restartTimer() {
   clearInterval(interval);
@@ -815,21 +950,13 @@ function changeValue(id, direction) {
   var input = document.getElementById(id);
   var value = parseInt(input.value);
   if (direction === 'up') {
-      input.value = (value + 1) % 60;
+    input.value = (value + 1) % 60;
   } else if (direction === 'down') {
-      input.value = (value - 1 + 60) % 60;
+    input.value = (value - 1 + 60) % 60;
   }
 }
 
-
-function generateQRCode(qrCodeLink) {
-  var qrCodeImg = document.getElementById("qrCodeImg");
-  qrCodeImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(qrCodeLink);
-}
-
-
-
-
+/* Display */
 
 var hero = document.getElementById("hero-section");
 var about = document.getElementById("about");
@@ -838,11 +965,17 @@ var timer = document.getElementById("timer");
 var statistics = document.getElementById("statistics");
 
 
-// var heroSelect = document.getElementById("hero-select");
-// var pdfSelect = document.getElementById("pdf-select");
-// var quizSelect = document.getElementById("quiz-select");
-// var timeSelect = document.getElementById("time-select");
-// var statsSelect = document.getElementById("stats-select");
+var heroSelect = document.getElementById("hero-select");
+var pdfSelect = document.getElementById("pdf-select");
+var quizSelect = document.getElementById("quiz-select");
+var timeSelect = document.getElementById("time-select");
+var statsSelect = document.getElementById("stats-select");
+
+var heroSpan = document.getElementById("hero-span");
+var pdfSpan = document.getElementById("pdf-span");
+var quizSpan = document.getElementById("quiz-span");
+var timeSpan = document.getElementById("time-span");
+var statsSpan = document.getElementById("stats-span");
 
 
 function HeroDisplay(){
@@ -853,18 +986,26 @@ function HeroDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  // heroSelect.style.backgroundColor = "#274C77";
-  // heroSelect.style.color = "#f2f3f5";
+  heroSelect.style.backgroundColor = "#274C77";
+  heroSelect.style.color = "#f2f3f5";
+  heroSpan.style.color = "#f2f3f5";
 
   // Reset other elements styles
-  // pdfSelect.style.backgroundColor = "#f2f3f5";
-  // pdfSelect.style.color = "#274C77";
-  // quizSelect.style.backgroundColor = "#f2f3f5";
-  // quizSelect.style.color = "#274C77";
-  // timeSelect.style.backgroundColor = "#f2f3f5";
-  // timeSelect.style.color = "#274C77";
-  // statsSelect.style.backgroundColor = "#f2f3f5";
-  // statsSelect.style.color = "#274C77";
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  pdfSpan.style.color = "#274C77";
+
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  quizSpan.style.color = "#274C77";
+
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  timeSpan.style.color = "#274C77";
+
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+  statsSpan.style.color = "#274C77";
 }
 
 function PdfDisplay(){
@@ -875,18 +1016,26 @@ function PdfDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  // heroSelect.style.backgroundColor = "#f2f3f5";
-  // heroSelect.style.color = "#274C77";
-
+  pdfSelect.style.backgroundColor = "#274C77";
+  pdfSelect.style.color = "#f2f3f5";
+  pdfSpan.style.color = "#f2f3f5";
+  
   // Reset other elements styles
-  // pdfSelect.style.backgroundColor = "#274C77";
-  // pdfSelect.style.color = "#f2f3f5";
-  // quizSelect.style.backgroundColor = "#f2f3f5";
-  // quizSelect.style.color = "#274C77";
-  // timeSelect.style.backgroundColor = "#f2f3f5";
-  // timeSelect.style.color = "#274C77";
-  // statsSelect.style.backgroundColor = "#f2f3f5";
-  // statsSelect.style.color = "#274C77";
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+  heroSpan.style.color = "#274C77";
+
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  quizSpan.style.color = "#274C77";
+
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  timeSpan.style.color = "#274C77";
+
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+  statsSpan.style.color = "#274C77";
 }
 
 function quizDisplay(){
@@ -897,18 +1046,26 @@ function quizDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  // heroSelect.style.backgroundColor = "#f2f3f5";
-  // heroSelect.style.color = "#274C77";
-
+  quizSelect.style.backgroundColor = "#274C77";
+  quizSelect.style.color = "#f2f3f5";
+  quizSpan.style.color = "#f2f3f5";
+  
   // Reset other elements styles
-  // pdfSelect.style.backgroundColor = "#f2f3f5";
-  // pdfSelect.style.color = "#274C77";
-  // quizSelect.style.backgroundColor = "#274C77";
-  // quizSelect.style.color = "#f2f3f5";
-  // timeSelect.style.backgroundColor = "#f2f3f5";
-  // timeSelect.style.color = "#274C77";
-  // statsSelect.style.backgroundColor = "#f2f3f5";
-  // statsSelect.style.color = "#274C77";
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+  heroSpan.style.color = "#274C77";
+
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  pdfSpan.style.color = "#274C77";
+
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  timeSpan.style.color = "#274C77";
+
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+  statsSpan.style.color = "#274C77";
 }
 
 function timeDisplay(){
@@ -919,18 +1076,26 @@ function timeDisplay(){
   statistics.style.display = "none"; // Display start button
 
   // Set selected element styles
-  // heroSelect.style.backgroundColor = "#f2f3f5";
-  // heroSelect.style.color = "#274C77";
-
+  timeSelect.style.backgroundColor = "#274C77";
+  timeSelect.style.color = "#f2f3f5";
+  timeSpan.style.color = "#f2f3f5";
+  
   // Reset other elements styles
-  // pdfSelect.style.backgroundColor = "#f2f3f5";
-  // pdfSelect.style.color = "#274C77";
-  // quizSelect.style.backgroundColor = "#f2f3f5";
-  // quizSelect.style.color = "#274C77";
-  // timeSelect.style.backgroundColor = "#274C77";
-  // timeSelect.style.color = "#f2f3f5";
-  // statsSelect.style.backgroundColor = "#f2f3f5";
-  // statsSelect.style.color = "#274C77";
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+  heroSpan.style.color = "#274C77";
+
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  pdfSpan.style.color = "#274C77";
+
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  quizSpan.style.color = "#274C77";
+
+  statsSelect.style.backgroundColor = "#f2f3f5";
+  statsSelect.style.color = "#274C77";
+  statsSpan.style.color = "#274C77";
 }
 
 function statsDisplay(){
@@ -941,16 +1106,140 @@ function statsDisplay(){
   statistics.style.display = "block"; // Display start button
 
   // Set selected element styles
-  // heroSelect.style.backgroundColor = "#f2f3f5";
-  // heroSelect.style.color = "#274C77";
-
+  statsSelect.style.backgroundColor = "#274C77";
+  statsSelect.style.color = "#f2f3f5";
+  statsSpan.style.color = "#f2f3f5";
+  
   // Reset other elements styles
-  // pdfSelect.style.backgroundColor = "#f2f3f5";
-  // pdfSelect.style.color = "#274C77";
-  // quizSelect.style.backgroundColor = "#f2f3f5";
-  // quizSelect.style.color = "#274C77";
-  // timeSelect.style.backgroundColor = "#f2f3f5";
-  // timeSelect.style.color = "#274C77";
-  // statsSelect.style.backgroundColor = "#274C77";
-  // statsSelect.style.color = "#f2f3f5";
+  heroSelect.style.backgroundColor = "#f2f3f5";
+  heroSelect.style.color = "#274C77";
+  heroSpan.style.color = "#274C77";
+
+  pdfSelect.style.backgroundColor = "#f2f3f5";
+  pdfSelect.style.color = "#274C77";
+  pdfSpan.style.color = "#274C77";
+
+  quizSelect.style.backgroundColor = "#f2f3f5";
+  quizSelect.style.color = "#274C77";
+  quizSpan.style.color = "#274C77";
+  
+  timeSelect.style.backgroundColor = "#f2f3f5";
+  timeSelect.style.color = "#274C77";
+  timeSpan.style.color = "#274C77";
 }
+
+/*
+stats part/ 
+*/
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("see-results").addEventListener("click", async (event) => {
+    // Prevent the default behavior of the click event
+    event.preventDefault();
+    try {
+      
+      console.log('Fetching responses for form ID:', formId);
+      const response = await fetch('http://localhost:3000/api/get-responses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ formId })
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Form responses:', responseData.responses);
+        console.log('Form questions:', responseData.questions);
+
+
+        // Render statistics and attendance
+        renderStatsAndAttendance(responseData.responses,responseData.questions);
+      } else {
+        console.error('Failed to fetch responses');
+      }
+    } catch (error) {
+      console.error('Error fetching responses:', error);
+    }
+    return false;
+  });
+});
+function renderStatsAndAttendance(responses,questions) {
+  // Calculate the number of responses
+  const numberOfResponses = responses.length;
+  console.log('Number of students who replied:', numberOfResponses);
+
+  // Update the attendance section with the number of responses
+  const attendanceTable = document.getElementById('attendance-table');
+  attendanceTable.innerHTML = `<p>The number of responses for this quiz is: ${numberOfResponses}</p>`;
+
+  // Show the statistics section
+  document.getElementById('statistics').style.display = 'block';
+
+  // Scroll to the attendance section
+  document.getElementById('pills-attendance').scrollIntoView({ behavior: 'smooth' });
+
+  // Process responses and render pie charts
+  renderPieCharts(responses,questions);
+}
+
+function renderPieCharts(responses,questions) {
+  // Aggregate answers by question ID
+  const questionAggregates = {};
+
+  responses.forEach(response => {
+    Object.entries(response.answers).forEach(([questionId, answerData]) => {
+      const answer = answerData.textAnswers.answers[0].value;
+
+      if (!questionAggregates[questionId]) {
+        questionAggregates[questionId] = {};
+      }
+      if (!questionAggregates[questionId][answer]) {
+        questionAggregates[questionId][answer] = 0;
+      }
+
+      questionAggregates[questionId][answer]++;
+    });
+  });
+
+  // Calculate percentages and render pie charts
+  const graphsContainer = document.getElementById('pills-graphs');
+  graphsContainer.innerHTML = ''; // Clear any existing content
+
+  Object.entries(questionAggregates).forEach(([questionId, answers], index) => {
+    const labels = Object.keys(answers);
+    const data = Object.values(answers).map(count => (count / responses.length) * 100);
+
+    const questionText = quizData[index].question;
+
+
+    // Create a canvas element for the pie chart
+    const canvas = document.createElement('canvas');
+    graphsContainer.appendChild(canvas);
+
+    // Render the pie chart
+    new Chart(canvas, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'], // Customize colors as needed
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: `Question ${index+1}`
+          }
+        }
+      }
+    });
+  });
+}
+

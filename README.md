@@ -50,3 +50,27 @@ This will prompt you to log in with your Google account and authorize the applic
 
 ### Create a Form
 You can create a form by sending a POST request to http://localhost:3000/api/create-form. You can use tools like Postman or write a frontend for it 
+
+## Model API
+
+This repository also contains the Model API, which allows you to interact with our model using a simple app. Follow the steps below to set up and run the application.
+
+## Setup Instructions
+
+### 1. Create and Activate a Virtual Environment
+
+Create a virtual environment to manage the project dependencies and activate it.
+
+### 2. Install Required Libraries
+Install all necessary libraries listed in the requirements.txt file.
+
+
+### 3. Create a .env File
+GROQ_API_KEY=your_groq_api_key_here
+GOOGLE_API_KEY=your_google_api_key_here
+
+### 4. Navigate to the Model Directory and Run the Application 
+
+Run the app.py script to start the application.
+
+Once the application is running, you can start using the model through the provided API endpoints.

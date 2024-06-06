@@ -59,11 +59,11 @@
 
     <nav id="navbar" class="navbar nav-menu">
       <ul>
-        <li onclick="HeroDisplay()"><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li  onclick="PdfDisplay()"><a href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Upload</span></a></li>
-        <li onclick="quizDisplay()"><a href="#quiz_section" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Quiz</span></a></li>
-        <li onclick="timeDisplay()"><a href="#timer" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Qr</span></a></li>
-        <li onclick="statsDisplay()"><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        <li onclick="HeroDisplay()"><a  id='hero-select'  href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span id='hero-span'>Home</span></a></li>
+        <li onclick="PdfDisplay()"><a id='pdf-select' href="#about" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span id='pdf-span'>Upload</span></a></li>
+        <li onclick="quizDisplay()"><a id='quiz-select' href="#quiz_section" class="nav-link scrollto"><i class="bx bx-server"></i> <span id='quiz-span'>Quiz</span></a></li>
+        <li onclick="timeDisplay()"><a id='time-select' href="#timer" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span id='time-span'>Qr</span></a></li>
+        <li onclick="statsDisplay()"><a id='stats-select' href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span id='stats-span'>Statistics</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
@@ -93,60 +93,42 @@
 
   <main id="main">
 
-      <!-- ======= About Section ======= -->
-      <section id="about" class="about" style="display: none;">
-        <div class="container" data-aos="fade-up">
-  
-          <div class="section-title">
-            <h2>Upload Your PDF</h2>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="card p-5" style="height: 450px; width: 850px;">
-                <div class="card-content d-flex flex-column justify-content-between h-100">
-                  <div class="d-flex flex-column justify-content-center align-items-center">
-                    <div class="mb-4 text-center" style="width:90%;">
-                      <label for="pdf-file" class="form-label"
-                        style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
-                      <div class="input-group">
-                        <input class="form-control" type="file" id="pdf-file" accept=".pdf">
-                      </div>
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about" style="display: none;">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Upload Your PDF</h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card p-5" style="height: 450px; width: 850px;">
+              <div class="card-content d-flex flex-column justify-content-between h-100">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                  <div class="mb-4 text-center" style="width:90%;">
+                    <label for="pdf-file" class="form-label"
+                      style="color: white; font-size: 24px; margin-bottom: 100px;">Choose a PDF file:</label>
+                    <div class="input-group">
+                      <input class="form-control" type="file" id="pdf-file" accept=".pdf">
                     </div>
-                  </div>
-  
-                  <div class="row justify-content-center questions-details">
-                    <div style="width: 30%;" class="input-field">
-                      <p>Number of Questions</p><input type="text" value="10" required>
-                    </div>
-                    <div style="width: 30%;" class="input-field">
-                      <p>Type of Questions</p>
-                      <select required>
-                        <option selected>Select an option</option>
-                        <option>Multiple Choice</option>
-                        <option>Single Choice</option>
-                        <option>Mixed</option>
-                      </select>
-                    </div>
-                    <div style="width: 30%;" class="input-field">
-                      <p>Number of Options</p><input type="number" value="3" min="2" max="5" required>
-                    </div>
-  
-                  </div>
-                  <div id="loading-message" style="display: none;">Loading...</div>
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary" id="start-generation2"
-                      style="background-color: #274C77; border-color: #274C77;margin-top: 50px;"
-                      onclick="callPythonFunction()">Generate</button>
                   </div>
                 </div>
               </div>
-  
+              <div id="loading-message" style="display: none;">Loading...</div>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary" id="start-generation2"
+                  style="background-color: #274C77; border-color: #274C77;margin-top: 50px;"
+                  onclick="callPythonFunction()">Generate</button>
+              </div>
             </div>
-  
           </div>
-  
+
         </div>
-      </section>
+
+      </div>
+
+      </div>
+    </section>
 
     <!-- ======= Resume Section ======= -->
     <section id="quiz_section" class="resume" style="display: none;">
@@ -181,7 +163,8 @@
                   </li>
                   <li><input type="text" class="answer-option form-control mb-2" placeholder="Enter Answer Option">
                   </li>
-                </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer Field</button>
+                </div><button type="button" id="addAnswerFieldBtn" class="btn btn-secondary mt-3">Add Answer
+                  Field</button>
 
               </div>
               <div id="remark" style="color: blue; margin: 10px;"></div>
@@ -195,7 +178,7 @@
     </section>
 
 
- 
+
     <section id="timer" class="text-center" style="padding-bottom: 350px;display: none;">
       <div class="section-title" style="margin-top: 65px;">
         <h2>Qr code</h2>
@@ -226,7 +209,7 @@
               <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
                 onclick="changeValue('minutes', 'up')">↑</button>
               <input style="font-weight: bold;text-align: center;" type="text" id="minutes" class="form-control" min="0"
-                value="0" style="text-align: center;">
+                value="5" style="text-align: center;">
               <button style="background-color: #9fafc2;color: white;" type="button" class="btn btn-link btn-sm"
                 onclick="changeValue('minutes', 'down')">↓</button>
             </div>
@@ -274,116 +257,50 @@
 
       <button id="see-results" class="btn btn-primary mt-3"
         style="display: none;margin-bottom:100px; margin-bottom: 50px;background-color: #274C77;border-color: #274C77;margin: auto;"
-        onclick="statsDisplay()">See
-        Results</button>
+        onclick="statsDisplay()">See Results</button>
+
     </section>
 
 
-      
-     
-<!-- Display The Statistics -->
-<section id="statistics" class="text-center" style="display: none;">
-  <div class="container">
-    <div class="section-title">
-      <h2>Quiz Results & Attendance</h2>
-    </div>
-    <!-- Scrollable Menu -->
-    <div class="scrollable-menu">
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="pills-attendance-tab" data-bs-toggle="pill" data-bs-target="#pills-attendance" type="button" role="tab" aria-controls="pills-attendance" aria-selected="true">Attendance</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="pills-graphs-tab" data-bs-toggle="pill" data-bs-target="#pills-graphs" type="button" role="tab" aria-controls="pills-graphs" aria-selected="false">Stats</button>
-        </li>
-      </ul>
-    </div>
-    <!-- Tab Content -->
-    <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-attendance" role="tabpanel" aria-labelledby="pills-attendance-tab">
-        <!-- Attendance Table -->
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>Final Quiz Mark</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceTable">
-              <!-- Attendance data will be dynamically populated here -->
-            </tbody>
-          </table>
+
+
+    <!-- Display The Statistics -->
+    <section id="statistics" class="text-center" style="display: none;">
+      <div class="container">
+        <div class="section-title">
+          <h2>Quiz Results & Attendance</h2>
         </div>
-        <div class="text-center mt-3">
-          <button class="btn btn-primary download-button" onclick="downloadPDF()">Download Sheet</button>
+        <!-- Scrollable Menu -->
+        <div class="scrollable-menu">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-attendance-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-attendance" type="button" role="tab" aria-controls="pills-attendance"
+                aria-selected="true">Attendance</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-graphs-tab" data-bs-toggle="pill" data-bs-target="#pills-graphs"
+                type="button" role="tab" aria-controls="pills-graphs" aria-selected="false">Stats</button>
+            </li>
+          </ul>
         </div>
-      </div>
-      <div class="tab-pane fade" id="pills-graphs" role="tabpanel" aria-labelledby="pills-graphs-tab">
-        <!-- Placeholder div for the pie chart -->
-        <div id="quizResultsPieChart">
-
-
-          <!-- Display the average mark -->
-          <div id="averageMark" style="margin-top: 20px;"></div>
-
-          <canvas id="pieChart" width="50" height="50"></canvas>
-
-          
-
-          
-          <!-- an eXAMPLE -->
-          <div class="panel">
-            <div class="panel-header">
-              <h3 class="title">Statistics</h3>
-          
+        <!-- Tab Content -->
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-attendance" role="tabpanel"
+            aria-labelledby="pills-attendance-tab">
+            <!-- Attendance Table -->
+            <div id="attendance-table">
+              <!-- JavaScript will inject the table here -->
             </div>
-          
-            <div class="panel-body">
-              <div class="categories" id="statisticsContainer">
-                <!-- Statistics will be dynamically populated here -->
-              </div>
-          
-              <div class="chart">
-                <div class="operating-systems">
-                  <span class="ios-os">
-                    <span></span>iOS
-                  </span>
-                  <span class="windows-os">
-                    <span></span>Windows
-                  </span>
-                  <span class="android-os">
-                    <span></span>Android
-                  </span>
-                </div>
-          
-                <!--    Place the stats numbers here    -->
-                <div class="android-stats">
-                  453.67<span></span>
-                </div>
-                <div class="ios-stats">
-                  <span></span>453.67
-                </div>
-                <div class="windows-stats">
-                  <span></span>453.67
-                </div>
-                <!--   Place the SVG here     -->
-                <svg width="563" height="204" class="data-chart" viewBox="0 0 563 204" xmlns="http://www.w3.org/2000/svg">
-                  <g fill="none" fill-rule="evenodd">
-                    <path class="dataset-1" d="M30.046 97.208c2.895-.84 5.45-2.573 7.305-4.952L71.425 48.52c4.967-6.376 14.218-7.38 20.434-2.217l29.447 34.46c3.846 3.195 9.08 4.15 13.805 2.52l31.014-20.697c4.038-1.392 8.485-.907 12.13 1.32l3.906 2.39c5.03 3.077 11.43 2.753 16.124-.814l8.5-6.458c6.022-4.577 14.563-3.676 19.5 2.056l54.63 55.573c5.622 6.526 15.686 6.647 21.462.258l37.745-31.637c5.217-5.77 14.08-6.32 19.967-1.24l8.955 7.726c5.42 4.675 13.456 4.63 18.82-.11 4.573-4.036 11.198-4.733 16.508-1.735l61.12 34.505c4.88 2.754 10.916 2.408 15.45-.885L563 90.915V204H0v-87.312-12.627c5.62-.717 30.046-6.852 30.046-6.852z" fill="#7DC855" opacity=".9"/>
-                    <path class="dataset-2" d="M563 141.622l-21.546-13.87c-3.64-2.343-8.443-1.758-11.408 1.39l-7.565 8.03c-3.813 4.052-10.378 3.688-13.718-.758L469.83 84.58c-3.816-5.08-11.588-4.687-14.867.752l-28.24 46.848c-2.652 4.402-8.48 5.673-12.74 2.78l-15.828-10.76c-3.64-2.475-8.55-1.948-11.575 1.245l-53.21 43.186c-3.148 3.32-8.305 3.74-11.953.974l-100.483-76.2c-3.364-2.55-8.06-2.414-11.27.326l-18.24 15.58c-3.25 2.773-8.015 2.874-11.38.24L159.91 93.79c-3.492-2.733-8.467-2.51-11.697.525l-41.58 39.075c-2.167 2.036-5.21 2.868-8.117 2.218L39.05 112.5c-4.655-1.808-9.95-.292-12.926 3.7L0 137.31V204h563v-62.378z" fill="#F8E71C" opacity=".6"/>
-                    <path class="dataset-3" d="M0 155.59v47.415c0 .55.448.995 1 .995h562v-43.105l-40.286 11.83c-3.127.92-6.493.576-9.368-.954l-53.252-28.32c-5.498-2.924-12.323-1.365-15.987 3.654l-25.48 34.902c-4.08 5.59-12.478 5.513-16.455-.148L360.06 121.92c-2.802-4.073-8.2-5.457-12.633-3.237L322.2 133.827c-4.415 2.21-9.792.848-12.604-3.196L282.78 99.25c-4.106-5.906-12.978-5.6-16.665.57l-26.757 44.794c-3.253 5.446-10.753 6.468-15.36 2.092l-16.493-15.673c-4.27-4.058-11.138-3.522-14.72 1.148l-23.167 30.21c-3.722 4.852-10.937 5.207-15.12.744l-44.385-47.345c-5.807-5.427-14.83-5.508-20.734-.19l-55.76 48.31c-3.76 3.26-9.127 3.93-13.582 1.703L0 155.59z" fill="#F5A623" opacity=".7"/>
-                    <path class="lines" fill="#FFF" opacity=".2" d="M0 203h563v1H0zM0 153h563v1H0zM0 102h563v1H0zM0 51h563v1H0zM0 0h563v1H0z"/>
-                  </g>
-          </svg>
-              </div>
-            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-graphs" role="tabpanel" aria-labelledby="pills-graphs-tab" style="width:60%; margin:0 auto;">
+
+            <!-- Graphs and statistics will be displayed here -->
+            <canvas id="myChart" width="200" height="200"></canvas>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
   </main><!-- End #main -->
@@ -421,25 +338,25 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="assets/vendor/aos/aos.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/typed.js/typed.umd.js"></script>
-<script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- icons JS File -->
-<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <!-- icons JS File -->
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-<!--  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>-->
-<script src="attendance.js"></script>
-<script src="stats.js" defer></script>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <!--  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>-->
+  <script src="attendance.js"></script>
+  <script src="stats.js" defer></script>
 
 
 </body>
