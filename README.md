@@ -22,5 +22,12 @@ This project includes an integration with Google Forms to create and manage form
 1. **Clone the Repository**
 
    ```bash
-   git clone <your-repository-url>
+   git clone <https://github.com/linaahlem/POPUPQUIZ.git>
    cd <your-repository-name>
+
+2. **Install Dependencies**
+    ```bash
+   npm install
+
+
+   
