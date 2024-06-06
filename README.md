@@ -43,19 +43,10 @@ This project includes an integration with Google Forms to create and manage form
        ```
 1. **Start the server**
    -Open your web browser and navigate to:
-         ```bash
+   ```bash
       http://localhost:3000/auth
        ```
-   This will prompt you to log in with your Google account and authorize the application. After successful authentication, you will receive a message confirming that you can now create forms.
+This will prompt you to log in with your Google account and authorize the application. After successful authentication, you will receive a message confirming that you can now create forms.
 
 ### Create a Form
-You can create a form by sending a POST request to http://localhost:3000/api/create-form. You can use tools like Postman or write a frontend that makes this reques
-
-
- 
-   
-
-
-
-
-   
+You can create a form by sending a POST request to http://localhost:3000/api/create-form. You can use tools like Postman or write a frontend for it 
