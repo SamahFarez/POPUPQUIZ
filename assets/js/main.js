@@ -351,12 +351,11 @@ async function callPythonFunction() {
     }
 
     const data = await response.json();
-    console.log(data.quiz_data);
-    // quizData =  await data.quiz_data[0];
+    console.log("quiz data : ", data);
+    quizData =  await data.quiz_data;
     // console.log(quizData); // Output: What was the purpose of transforming categorical features into numerical values?
-
-    quizData = await findQuestions(data.quiz_data);
-    console.log(quizData);
+    // quizData = await findQuestions(data.quiz_data);
+    // console.log(quizData);
 
     generateQuizHTML();
     handleAddQuestionButton();
@@ -404,84 +403,6 @@ var code_url = "";
 var formId;
 
 
-//function to convert this array to json and create the form and generate qr code
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("validate-quiz-button").addEventListener("click", async () => {
-    const img = document.getElementById('qr-code-image');
-    const container = document.getElementById('qr-code-container');
-    console.log("Button clicked!");
-    const update = {
-      requests: []
-    };
-
-    // conversion to json 
-    quizData.forEach((questionItem, index) => {
-      const correctOption = questionItem.options.find(option => option.isCorrect === true);
-      console.log("****************************************************")
-      console.log(correctOption.text);
-      const createItemRequest = {
-        createItem: {
-          item: {
-            title: `Question ${index + 1}`,
-            description: questionItem.question,
-            questionItem: {
-              question: {
-                required: true,
-                grading: {
-                  pointValue: 1,
-                  correctAnswers: {
-                    answers: [
-                      {
-                        value: correctOption.text
-                      }
-                    ]
-                  }
-                },
-                choiceQuestion: {
-                  type: "RADIO",
-                  options: questionItem.options.map(option => ({ value: option.text }))
-                },
-              }
-            }
-          },
-          location: {
-            index: index
-          }
-        }
-      };
-      console.log("-----------------------------------------------")
-      console.log(createItemRequest)
-      update.requests.push(createItemRequest);
-    });
-    //form creation
-    try {
-      const response = await fetch('http://localhost:3000/api/create-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ update })
-      });
-      //get URL of the form if the response is valid
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log('Form created:', responseData);
-        const formUrl = responseData.formUrl;
-        formId = responseData.formId;
-        console.log('Assigned formId:', formId);
-        // Generate QR code based on the form URL
-        code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
-        img.src = code_url;
-        container.classList.add('active');
-      } else {
-        console.error('Failed to create form');
-      }
-    } catch (error) {
-      console.error('Error creating form:', error);
-    }
-  });
-});
 
 
 
@@ -640,6 +561,7 @@ function handleAddQuestionButton() {
           options: answerOptions
         });
         // Construct the new question structure
+        console.log("new question added: ", quizData );
         const newQuestion = document.createElement('div');
         newQuestion.classList.add('quiz-question');
         const answerOptionInputsArray = Array.from(nonEmptyInputs);
@@ -764,7 +686,87 @@ function displayRemark(message, color = 'blue') {
 
 
 
+/*
+Form part
+*/
+//function to convert this array to json and create the form and generate qr code
 
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("validate-quiz-button").addEventListener("click", async () => {
+    const img = document.getElementById('qr-code-image');
+    const container = document.getElementById('qr-code-container');
+    console.log("Button clicked!");
+    const update = {
+      requests: []
+    };
+
+    // conversion to json 
+    quizData.forEach((questionItem, index) => {
+      const correctOption = questionItem.options.find(option => option.isCorrect === true);
+      console.log("****************************************************")
+      console.log(correctOption.text);
+      const createItemRequest = {
+        createItem: {
+          item: {
+            title: `Question ${index + 1}`,
+            description: questionItem.question,
+            questionItem: {
+              question: {
+                required: true,
+                grading: {
+                  pointValue: 1,
+                  correctAnswers: {
+                    answers: [
+                      {
+                        value: correctOption.text
+                      }
+                    ]
+                  }
+                },
+                choiceQuestion: {
+                  type: "RADIO",
+                  options: questionItem.options.map(option => ({ value: option.text }))
+                },
+              }
+            }
+          },
+          location: {
+            index: index
+          }
+        }
+      };
+      console.log("-----------------------------------------------")
+      console.log(createItemRequest)
+      update.requests.push(createItemRequest);
+    });
+    //form creation
+    try {
+      const response = await fetch('http://localhost:3000/api/create-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ update })
+      });
+      //get URL of the form if the response is valid
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log('Form created:', responseData);
+        const formUrl = responseData.formUrl;
+        formId = responseData.formId;
+        console.log('Assigned formId:', formId);
+        // Generate QR code based on the form URL
+        code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
+        img.src = code_url;
+        container.classList.add('active');
+      } else {
+        console.error('Failed to create form');
+      }
+    } catch (error) {
+      console.error('Error creating form:', error);
+    }
+  });
+});
 
 
 // Get all checkboxes
