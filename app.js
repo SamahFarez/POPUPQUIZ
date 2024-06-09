@@ -16,8 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 const OAuth2Client = google.auth.OAuth2;
-const CLIENT_ID = "your_client_id";
-const CLIENT_SECRET = "your_client_secret";
+const CLIENT_ID =
+"712015173804-411e4pqa7jjldl3lrt6eb2t6raj3ror3.apps.googleusercontent.com";
+const CLIENT_SECRET = "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";
 const REDIRECT_URI = "http://localhost:3000/oauth2callback";
 
 const oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
@@ -166,39 +167,110 @@ app.post("/api/close-form", async (req, res) => {
   }
 });
 
+// app.post("/api/get-responses", async (req, res) => {
+//   const { formId } = req.body;
+//   try {
+//     if (!oauth2Client.credentials || !oauth2Client.credentials.access_token) {
+//       return res.status(401).send("Authentication is required.");
+//     }
+
+//     if (!formId) {
+//       return res.status(400).send("Form ID is required.");
+//     }
+
+//     await oauth2Client.getAccessToken();
+
+//     const forms = google.forms({
+//       version: "v1",
+//       auth: oauth2Client,
+//     });
+
+//     const formResponse = await forms.forms.responses.list({
+//       formId: formId,
+//     });
+
+//     console.log("Form Response:", formResponse);
+
+//     const responses = formResponse.data.responses;
+
+//     res.json({ responses });
+//   } catch (error) {
+//     console.error('Failed to get responses:', error);
+//     res.status(500).send("Failed to get responses.");
+//   }
+// });
+
 app.post("/api/get-responses", async (req, res) => {
-  const { formId } = req.body;
   try {
+    const { formId } = req.body;
+ 
+ 
     if (!oauth2Client.credentials || !oauth2Client.credentials.access_token) {
       return res.status(401).send("Authentication is required.");
     }
-
+ 
+ 
     if (!formId) {
       return res.status(400).send("Form ID is required.");
     }
-
+ 
+ 
     await oauth2Client.getAccessToken();
-
+ 
+ 
     const forms = google.forms({
       version: "v1",
       auth: oauth2Client,
     });
-
+ 
+ 
+    // Fetch the form details to get the question descriptions
+    const formDetails = await forms.forms.get({
+      formId: formId,
+    });
+ 
+ 
+    console.log("Form Details:", formDetails);
+ 
+ 
+    const questions = formDetails.data.items.reduce((acc, item) => {
+      acc[item.questionItem.question.questionId] = item.description || item.title;
+      return acc;
+    }, {});
+ 
+ 
+    // Fetch the form responses
     const formResponse = await forms.forms.responses.list({
       formId: formId,
     });
-
+ 
+ 
     console.log("Form Response:", formResponse);
-
+ 
+ 
     const responses = formResponse.data.responses;
-
-    res.json({ responses });
+ 
+ 
+    // Combine responses with question descriptions
+    const formattedResponses = responses.map(response => {
+      const answers = response.answers;
+      const formattedAnswers = Object.keys(answers).reduce((acc, questionId) => {
+        const questionDesc = questions[questionId];
+        const answerTexts = answers[questionId].textAnswers.answers.map(a => a.value).join(", ");
+        acc[questionDesc] = answerTexts;
+        return acc;
+      }, {});
+      return formattedAnswers; // Exclude responseId
+    });
+ 
+ 
+    res.json({ responses: formattedResponses, questions });
   } catch (error) {
     console.error('Failed to get responses:', error);
     res.status(500).send("Failed to get responses.");
   }
-});
-
+ });
+ 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

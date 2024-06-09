@@ -691,6 +691,82 @@ Form part
 */
 //function to convert this array to json and create the form and generate qr code
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   document.getElementById("validate-quiz-button").addEventListener("click", async () => {
+//     const img = document.getElementById('qr-code-image');
+//     const container = document.getElementById('qr-code-container');
+//     console.log("Button clicked!");
+//     const update = {
+//       requests: []
+//     };
+
+//     // conversion to json 
+//     quizData.forEach((questionItem, index) => {
+//       const correctOption = questionItem.options.find(option => option.isCorrect === true);
+//       console.log("****************************************************")
+//       console.log(correctOption.text);
+//       const createItemRequest = {
+//         createItem: {
+//           item: {
+//             title: `Question ${index + 1}`,
+//             description: questionItem.question,
+//             questionItem: {
+//               question: {
+//                 required: true,
+//                 grading: {
+//                   pointValue: 1,
+//                   correctAnswers: {
+//                     answers: [
+//                       {
+//                         value: correctOption.text
+//                       }
+//                     ]
+//                   }
+//                 },
+//                 choiceQuestion: {
+//                   type: "RADIO",
+//                   options: questionItem.options.map(option => ({ value: option.text }))
+//                 },
+//               }
+//             }
+//           },
+//           location: {
+//             index: index
+//           }
+//         }
+//       };
+//       console.log("-----------------------------------------------")
+//       console.log(createItemRequest)
+//       update.requests.push(createItemRequest);
+//     });
+//     //form creation
+//     try {
+//       const response = await fetch('http://localhost:3000/api/create-form', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ update })
+//       });
+//       //get URL of the form if the response is valid
+//       if (response.ok) {
+//         const responseData = await response.json();
+//         console.log('Form created:', responseData);
+//         const formUrl = responseData.formUrl;
+//         formId = responseData.formId;
+//         console.log('Assigned formId:', formId);
+//         // Generate QR code based on the form URL
+//         code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
+//         img.src = code_url;
+//         container.classList.add('active');
+//       } else {
+//         console.error('Failed to create form');
+//       }
+//     } catch (error) {
+//       console.error('Error creating form:', error);
+//     }
+//   });
+// });
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("validate-quiz-button").addEventListener("click", async () => {
     const img = document.getElementById('qr-code-image');
@@ -700,8 +776,33 @@ document.addEventListener("DOMContentLoaded", function () {
       requests: []
     };
 
-    // conversion to json 
+    // Assuming quizData is defined somewhere above this code
+    // If not, define quizData here
+
+    // Ensure questionItem is defined before using it
     quizData.forEach((questionItem, index) => {
+      if (index === 0) { // Adding the student name input as the first question
+        const GetStudentName = {
+          createItem: {
+            item: {
+              title: `Student full name: `,
+              questionItem: {
+                question: {
+                  required: true,
+                  textQuestion: { // This indicates a text answer is expected
+                    paragraph: false // Set to 'true' for a multi-line text answer
+                  }
+                }
+              }
+            },
+            location: {
+              index: 0
+            }
+          }
+        };
+        update.requests.push(GetStudentName);
+      }
+
       const correctOption = questionItem.options.find(option => option.isCorrect === true);
       console.log("****************************************************")
       console.log(correctOption.text);
@@ -731,7 +832,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           },
           location: {
-            index: index
+            index: index + 1
           }
         }
       };
@@ -739,7 +840,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(createItemRequest)
       update.requests.push(createItemRequest);
     });
-    //form creation
+
+    // form creation
     try {
       const response = await fetch('http://localhost:3000/api/create-form', {
         method: 'POST',
@@ -748,7 +850,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify({ update })
       });
-      //get URL of the form if the response is valid
+      // get URL of the form if the response is valid
       if (response.ok) {
         const responseData = await response.json();
         console.log('Form created:', responseData);
@@ -756,7 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formId = responseData.formId;
         console.log('Assigned formId:', formId);
         // Generate QR code based on the form URL
-        code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
+        const code_url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(formUrl)}`;
         img.src = code_url;
         container.classList.add('active');
       } else {
@@ -1134,13 +1236,125 @@ function statsDisplay(){
 stats part/ 
 */
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   document.getElementById("see-results").addEventListener("click", async (event) => {
+//     // Prevent the default behavior of the click event
+//     event.preventDefault();
+//     try {
+      
+//       console.log('Fetching responses for form ID:', formId);
+//       const response = await fetch('http://localhost:3000/api/get-responses', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ formId })
+//       });
+
+//       if (response.ok) {
+//         const responseData = await response.json();
+//         console.log('Form responses:', responseData.responses);
+//         console.log('Form questions:', responseData.questions);
+
+
+//         // Render statistics and attendance
+//         renderStatsAndAttendance(responseData.responses,responseData.questions);
+//       } else {
+//         console.error('Failed to fetch responses');
+//       }
+//     } catch (error) {
+//       console.error('Error fetching responses:', error);
+//     }
+//     return false;
+//   });
+// });
+// function renderStatsAndAttendance(responses,questions) {
+//   // Calculate the number of responses
+//   const numberOfResponses = responses.length;
+//   console.log('Number of students who replied:', numberOfResponses);
+
+//   // Update the attendance section with the number of responses
+//   const attendanceTable = document.getElementById('attendance-table');
+//   attendanceTable.innerHTML = `<p>The number of responses for this quiz is: ${numberOfResponses}</p>`;
+
+//   // Show the statistics section
+//   document.getElementById('statistics').style.display = 'block';
+
+//   // Scroll to the attendance section
+//   document.getElementById('pills-attendance').scrollIntoView({ behavior: 'smooth' });
+
+//   // Process responses and render pie charts
+//   renderPieCharts(responses,questions);
+// }
+
+// function renderPieCharts(responses,questions) {
+//   // Aggregate answers by question ID
+//   const questionAggregates = {};
+
+//   responses.forEach(response => {
+//     Object.entries(response.answers).forEach(([questionId, answerData]) => {
+//       const answer = answerData.textAnswers.answers[0].value;
+
+//       if (!questionAggregates[questionId]) {
+//         questionAggregates[questionId] = {};
+//       }
+//       if (!questionAggregates[questionId][answer]) {
+//         questionAggregates[questionId][answer] = 0;
+//       }
+
+//       questionAggregates[questionId][answer]++;
+//     });
+//   });
+
+//   // Calculate percentages and render pie charts
+//   const graphsContainer = document.getElementById('pills-graphs');
+//   graphsContainer.innerHTML = ''; // Clear any existing content
+
+//   Object.entries(questionAggregates).forEach(([questionId, answers], index) => {
+//     const labels = Object.keys(answers);
+//     const data = Object.values(answers).map(count => (count / responses.length) * 100);
+
+//     const questionText = quizData[index].question;
+
+
+//     // Create a canvas element for the pie chart
+//     const canvas = document.createElement('canvas');
+//     graphsContainer.appendChild(canvas);
+
+//     // Render the pie chart
+//     new Chart(canvas, {
+//       type: 'pie',
+//       data: {
+//         labels: labels,
+//         datasets: [{
+//           data: data,
+//           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'], // Customize colors as needed
+//         }]
+//       },
+//       options: {
+//         responsive: true,
+//         plugins: {
+//           legend: {
+//             position: 'top',
+//           },
+//           title: {
+//             display: true,
+//             text: `Question ${index+1}`
+//           }
+//         }
+//       }
+//     });
+//   });
+// }
+
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("see-results").addEventListener("click", async (event) => {
     // Prevent the default behavior of the click event
     event.preventDefault();
     try {
-      
       console.log('Fetching responses for form ID:', formId);
+ 
+ 
       const response = await fetch('http://localhost:3000/api/get-responses', {
         method: 'POST',
         headers: {
@@ -1148,15 +1362,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         body: JSON.stringify({ formId })
       });
-
+ 
+ 
       if (response.ok) {
         const responseData = await response.json();
         console.log('Form responses:', responseData.responses);
-        console.log('Form questions:', responseData.questions);
-
-
+ 
+ 
         // Render statistics and attendance
-        renderStatsAndAttendance(responseData.responses,responseData.questions);
+        renderStatsAndAttendance(responseData.responses, responseData.questions);
       } else {
         console.error('Failed to fetch responses');
       }
@@ -1165,60 +1379,84 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return false;
   });
-});
-function renderStatsAndAttendance(responses,questions) {
+ });
+ 
+ 
+ function renderStatsAndAttendance(responses, questions) {
   // Calculate the number of responses
   const numberOfResponses = responses.length;
   console.log('Number of students who replied:', numberOfResponses);
-
+ 
+ 
   // Update the attendance section with the number of responses
   const attendanceTable = document.getElementById('attendance-table');
-  attendanceTable.innerHTML = `<p>The number of responses for this quiz is: ${numberOfResponses}</p>`;
-
+  attendanceTable.innerHTML = `<p>The number of attendants for this quiz is: ${numberOfResponses}</p>`;
+ 
+ 
+  // Extract and display the text field responses (first question)
+  const firstQuestionKey = Object.keys(questions)[0]; // Get the key of the first question
+  const textFieldResponses = responses.map(response => response[questions[firstQuestionKey]]);
+  const fullNameTable = document.createElement('table');
+  fullNameTable.classList.add('table', 'table-striped');
+  const tableHeader = `<thead><tr><th>Full Name</th></tr></thead>`;
+  const tableBody = textFieldResponses.map(answer => `<tr><td>${answer}</td></tr>`).join('');
+  fullNameTable.innerHTML = tableHeader + '<tbody>' + tableBody + '</tbody>';
+  attendanceTable.appendChild(fullNameTable);
+ 
+ 
+ 
+ 
   // Show the statistics section
   document.getElementById('statistics').style.display = 'block';
-
+ 
+ 
   // Scroll to the attendance section
   document.getElementById('pills-attendance').scrollIntoView({ behavior: 'smooth' });
-
-  // Process responses and render pie charts
-  renderPieCharts(responses,questions);
-}
-
-function renderPieCharts(responses,questions) {
-  // Aggregate answers by question ID
+ 
+ 
+  // Process responses and render pie charts for the remaining questions
+  renderPieCharts(responses, questions);
+ }
+ 
+ 
+ function renderPieCharts(responses, questions) {
+  // Aggregate answers by question description, skipping the first question
   const questionAggregates = {};
-
+ 
+ 
   responses.forEach(response => {
-    Object.entries(response.answers).forEach(([questionId, answerData]) => {
-      const answer = answerData.textAnswers.answers[0].value;
-
-      if (!questionAggregates[questionId]) {
-        questionAggregates[questionId] = {};
+    Object.entries(response).forEach(([questionDescription, answer], index) => {
+      if (questionDescription === "Student full name: ") return; // Skip the first question (text field)
+ 
+ 
+      if (!questionAggregates[questionDescription]) {
+        questionAggregates[questionDescription] = {};
       }
-      if (!questionAggregates[questionId][answer]) {
-        questionAggregates[questionId][answer] = 0;
+      if (!questionAggregates[questionDescription][answer]) {
+        questionAggregates[questionDescription][answer] = 0;
       }
-
-      questionAggregates[questionId][answer]++;
+ 
+ 
+      questionAggregates[questionDescription][answer]++;
     });
   });
-
+ 
+ 
   // Calculate percentages and render pie charts
   const graphsContainer = document.getElementById('pills-graphs');
   graphsContainer.innerHTML = ''; // Clear any existing content
-
-  Object.entries(questionAggregates).forEach(([questionId, answers], index) => {
+ 
+ 
+  Object.entries(questionAggregates).forEach(([questionDescription, answers], index) => {
     const labels = Object.keys(answers);
     const data = Object.values(answers).map(count => (count / responses.length) * 100);
-
-    const questionText = quizData[index].question;
-
-
+ 
+ 
     // Create a canvas element for the pie chart
     const canvas = document.createElement('canvas');
     graphsContainer.appendChild(canvas);
-
+ 
+ 
     // Render the pie chart
     new Chart(canvas, {
       type: 'pie',
@@ -1237,11 +1475,11 @@ function renderPieCharts(responses,questions) {
           },
           title: {
             display: true,
-            text: `Question ${index+1}`
+            text: `Question ${index+1}: ${questionDescription}`
           }
         }
       }
     });
   });
-}
-
+ }
+ 
