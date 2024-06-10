@@ -16,9 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 const OAuth2Client = google.auth.OAuth2;
-const CLIENT_ID =
-"712015173804-411e4pqa7jjldl3lrt6eb2t6raj3ror3.apps.googleusercontent.com";
-const CLIENT_SECRET = "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";
+const CLIENT_ID ="your_client_id";
+const CLIENT_SECRET = "your_client_secret";
 const REDIRECT_URI = "http://localhost:3000/oauth2callback";
 
 const oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
@@ -166,39 +165,6 @@ app.post("/api/close-form", async (req, res) => {
       res.status(500).send("Failed to close form.");
   }
 });
-
-// app.post("/api/get-responses", async (req, res) => {
-//   const { formId } = req.body;
-//   try {
-//     if (!oauth2Client.credentials || !oauth2Client.credentials.access_token) {
-//       return res.status(401).send("Authentication is required.");
-//     }
-
-//     if (!formId) {
-//       return res.status(400).send("Form ID is required.");
-//     }
-
-//     await oauth2Client.getAccessToken();
-
-//     const forms = google.forms({
-//       version: "v1",
-//       auth: oauth2Client,
-//     });
-
-//     const formResponse = await forms.forms.responses.list({
-//       formId: formId,
-//     });
-
-//     console.log("Form Response:", formResponse);
-
-//     const responses = formResponse.data.responses;
-
-//     res.json({ responses });
-//   } catch (error) {
-//     console.error('Failed to get responses:', error);
-//     res.status(500).send("Failed to get responses.");
-//   }
-// });
 
 app.post("/api/get-responses", async (req, res) => {
   try {

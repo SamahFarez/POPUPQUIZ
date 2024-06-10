@@ -60,13 +60,16 @@ This repository also contains the Model API, which allows you to interact with o
 ### 1. Create and Activate a Virtual Environment
 
 Create a virtual environment to manage the project dependencies and activate it.
-Run conda create -p venv python==3.12
-Then run conda activate venv/
+   ```bash
+   conda create -p venv python==3.12
+   conda activate venv/
+   ```
 
 ### 2. Install Required Libraries
 Install all necessary libraries listed in the requirements.txt file.
-Run pip install -r requirements.txt 
-
+   ```bash
+   pip install -r requirements.txt 
+   ```
 ### 3. Create a .env File
 GROQ_API_KEY=your_groq_api_key_here
 GOOGLE_API_KEY=your_google_api_key_here
@@ -74,5 +77,9 @@ GOOGLE_API_KEY=your_google_api_key_here
 ### 4. Navigate to the Model Directory and Run the Application 
 
 Run the app.py script to start the application.
+   ```bash
+   cd model
+   python app.py
+   ```
 
 Once the application is running, you can start using the model through the provided API endpoints.
