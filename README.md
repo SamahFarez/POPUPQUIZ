@@ -33,20 +33,20 @@ This project includes an integration with Google Forms to create and manage form
    npm install
     ```
 
-### Prerequisites
+### Running the Application
+
 1. **Start the server**
-2. 
-   - Run the following command to start your server
+2. **Run the following command to start your server**
        ```bash
       node app.js
        ```
        
-   - You should see a message indicating the server is running:
+   You should see a message indicating the server is running:
       ```bash
       Server running at http://localhost:3000
       ```
       
-1. **Start the server**
+3. **Start the server**
    -Open your web browser and navigate to:
    ```bash
       http://localhost:3000/auth
