@@ -41,12 +41,12 @@ This project includes an integration with Google Forms to create and manage form
    -You should see a message indicating the server is running:
       ```bash
       Server running at http://localhost:3000
-       ```
+      ```
 1. **Start the server**
    -Open your web browser and navigate to:
    ```bash
       http://localhost:3000/auth
-       ```
+   ```
 This will prompt you to log in with your Google account and authorize the application. After successful authentication, you will receive a message confirming that you can now create forms.
 
 ### Create a Form
