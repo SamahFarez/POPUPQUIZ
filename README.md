@@ -28,25 +28,30 @@ This project includes an integration with Google Forms to create and manage form
    ```
 
 2. **Install Dependencies**
+
     ```bash
    npm install
     ```
 
 ### Prerequisites
 1. **Start the server**
+2. 
    - Run the following command to start your server
        ```bash
       node app.js
        ```
-   -You should see a message indicating the server is running:
+       
+   - You should see a message indicating the server is running:
       ```bash
       Server running at http://localhost:3000
       ```
+      
 1. **Start the server**
    -Open your web browser and navigate to:
    ```bash
       http://localhost:3000/auth
    ```
+   
 This will prompt you to log in with your Google account and authorize the application. After successful authentication, you will receive a message confirming that you can now create forms.
 
 ### Create a Form
@@ -71,9 +76,11 @@ Install all necessary libraries listed in the requirements.txt file.
    ```bash
    pip install -r requirements.txt 
    ```
+
 ### 3. Create a .env File
-GROQ_API_KEY=your_groq_api_key_here
-GOOGLE_API_KEY=your_google_api_key_here
+
+- GROQ_API_KEY=your_groq_api_key_here
+- GOOGLE_API_KEY=your_google_api_key_here
 
 ### 4. Navigate to the Model Directory and Run the Application 
 
