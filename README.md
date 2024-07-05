@@ -91,3 +91,22 @@ Run the app.py script to start the application.
    ```
 
 Once the application is running, you can start using the model through the provided API endpoints.
+
+
+
+## Contributing
+
+We welcome contributions to enhance Durar - Quranic School Management System! If you have suggestions, bug reports, or want to contribute new features, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+Please ensure your code follows the project's coding standards and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
