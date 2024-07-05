@@ -37,17 +37,19 @@ This project includes an integration with Google Forms to create and manage form
 
 1. **Start the server**
 2. **Run the following command to start your server**
-       ```bash
+   
+   ```bash
       node app.js
-       ```
+   ```
        
    You should see a message indicating the server is running:
       ```bash
       Server running at http://localhost:3000
       ```
       
-3. **Start the server**
-   -Open your web browser and navigate to:
+4. **Start the server**
+
+   Open your web browser and navigate to:
    ```bash
       http://localhost:3000/auth
    ```
