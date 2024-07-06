@@ -2,6 +2,13 @@
 
 At POPUPQUIZ, we revolutionize the way of approaching learning and assessment. Our platform seamlessly integrates with lectures, allowing to generate customized quizzes that enhance understanding and retention. Whether it is an educator looking to create dynamic assessments or a student seeking interactive study tools, POPUPQUIZ offers a user-friendly interface and robust features designed to meet their needs.
 
+## Developing Team
+
+- **Imene Ait Abdellah**
+- **Lina Ahlem Boualam**
+- **Samah Ikram Farez**
+- **Nihal Hocine**
+
 ## Screenshots
 
 <p align="center">
@@ -11,7 +18,6 @@ At POPUPQUIZ, we revolutionize the way of approaching learning and assessment. O
   <img src="screenshots/Scanit.jpg" alt="Scan" width="220" />
   <img src="screenshots/Results.jpg" alt="Results" width="220" />
 </p>
-
 
 
 ## Google Forms Integration
