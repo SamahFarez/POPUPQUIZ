@@ -15,7 +15,7 @@ At POPUPQUIZ, we revolutionize the way of approaching learning and assessment. O
   <img src="screenshots/Home.jpg" alt="Home" width="220" />
   <img src="screenshots/Upload.jpg" alt="Upload" width="220" />
   <img src="screenshots/Customize.jpg" alt="Customize" width="220" />
-  <img src="screenshots/Scanit.jpg" alt="Scan" width="220" />
+  <img src="screenshots/Scan.jpg" alt="Scan" width="220" />
   <img src="screenshots/Results.jpg" alt="Results" width="220" />
 </p>
 
