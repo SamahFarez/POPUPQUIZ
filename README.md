@@ -2,6 +2,18 @@
 
 At POPUPQUIZ, we revolutionize the way of approaching learning and assessment. Our platform seamlessly integrates with lectures, allowing to generate customized quizzes that enhance understanding and retention. Whether it is an educator looking to create dynamic assessments or a student seeking interactive study tools, POPUPQUIZ offers a user-friendly interface and robust features designed to meet their needs.
 
+## Screenshots
+
+<p align="center">
+  <img src="screenshots/Home.jpg" alt="Home" width="220" />
+  <img src="screenshots/Upload.jpg" alt="Upload" width="220" />
+  <img src="screenshots/Customize.jpg" alt="Customize" width="220" />
+  <img src="screenshots/Scan.jpg" alt="Scan" width="220" />
+  <img src="screenshots/Results.jpg" alt="Results" width="220" />
+</p>
+
+
+
 ## Google Forms Integration
 
 This project includes an integration with Google Forms to create and manage forms programmatically.
